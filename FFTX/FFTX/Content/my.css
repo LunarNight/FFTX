@@ -1,0 +1,143 @@
+body {
+	background-image: url(img/body-bg.jpg);
+	background-repeat: repeat;
+}
+#head {
+	background-image: url(img/head-bg.jpg);
+	height: 300px;
+	width: 85%;
+	margin-right: 100px;
+	margin-left: 100px;
+	margin-top:50px;
+}
+#head #nav span a:hover {
+	font-family: "Î¢ÈíÑÅºÚ";
+	color: #FFF;
+	background-color: #F93;
+	text-align: center;
+	display: block;
+	width: 280px;
+	margin-left: 3px;
+}
+#menu {
+	background-color: #FFF;
+	height: 400px;
+	width: 300px;
+	margin-left: 100px;
+	margin-top: 10px;
+	float: left;
+}
+#content {
+	background-color: #FFF;
+	float: right;
+	margin-top: 10px;
+	margin-right: 100px;
+	margin-left: 10px;
+	height: 400px;
+	width: 800px;
+}
+#head #head-bg {
+	height: 250px;
+}
+#head #nav {
+	height: 30px;
+	margin-top: 20px;
+}
+#head #nav span {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 16px;
+	color: #666;
+	background-color: #FFF;
+	display: block;
+	width: 280px;
+	float: left;
+	margin-left: 3px;
+	text-align: center;
+}
+#head #nav span a {
+	color: #999;
+	text-decoration: none;
+}
+#head #head-bg img {
+	height: 100px;
+	width: 100px;
+	margin-top: 50px;
+	margin-right: 300px;
+	margin-left: 520px;
+}
+#menu span {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 14px;
+	color: #666;
+	text-align: center;
+	display: block;
+}
+#menu #gz {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 18px;
+	color: #FFF;
+	background-color: #09C;
+}
+#content #dt {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 18px;
+	color: #FFF;
+	background-color: #09C;
+}
+#head #head-bg #head-name {
+	color: #FFF;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+}
+#content #detail ul li {
+	height: 300px;
+	width: 700px;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	border-left-color: #999;
+	list-style-type: none;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	margin-left: 20px;
+}
+#content #detail ul li img {
+	height: 260px;
+	width: 350px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+#content #detail ul li span {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 14px;
+	color: #666;
+	text-align: center;
+	display: block;
+	float: right;
+	height: 200px;
+	width: 300px;
+	margin: 10px;
+}
+#menu span a {
+	font-size: 14px;
+	color: #666;
+	text-decoration: none;
+}
+#menu span a:hover {
+	color: #F93;
+	text-decoration: none;
+}
+#content #detail ul li #us-name {
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 16px;
+	color: #333;
+	margin-left: 10px;
+}
+

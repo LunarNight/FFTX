@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model FFTX.Models.UserRequest
+<html>
+<head>
+    <title>IdBlocked</title>
+</head>
+<body>
+    <div>
+        您的帐号已被封,可以进行申请解封
+       @using (Html.BeginForm("applyDeblock", "Login", FormMethod.Post))
+       {
+           <p>请点击下面的按钮进行申请</p>
+           @Html.HiddenFor(model => model.User_Id)
+           <input type="submit" value="申请解封" />
+           
+       }
+    </div>
+</body>
+</html>

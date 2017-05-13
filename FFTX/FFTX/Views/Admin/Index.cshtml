@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.AdminOperate
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    这是管理员的主页!!!是否登录??  @ViewBag.se  管理员姓名:@ViewBag.name 
+    <div style="background-color:#0094ff;height:200px">
+         @using (Html.BeginForm("blockUser", "Admin", FormMethod.Post))
+        {
+           <p>所封用户ID:@Html.TextBoxFor(model => model.User_Id)<br />
+               封号原因:@Html.TextAreaFor(model => model.Operate_Reason)
+           <input type="submit" value="确定" />
+           </p>
+        }
+    </div>
+    <div style ="background-color:#808080;height:200px">
+        @ViewBag.listinfo<br />
+        <div>
+            @if ((ViewBag.user_request_list != null) && (ViewBag.user_request_list.Count != 0))
+            {
+                <table>
+                    <tr><th>用户id</th><th>请求时间</th><th>操作</th></tr>
+                    @foreach (UserRequest ur in ViewBag.user_request_list)
+                    {
+                        <tr>
+                            <td>@ur.User_Id</td>
+                            <td>@ur.Request_Time</td>
+                            <td> <a href="/Admin/handleRequest?user_id=@ur.User_Id&state=0">同意</a>|<a href="/Admin/handleRequest?user_id=@ur.User_Id&state=1">拒绝</a></td>
+                        </tr>
+                     }
+                </table>
+                
+            }
+            
+        </div>
+    </div>
+</body>
+</html>

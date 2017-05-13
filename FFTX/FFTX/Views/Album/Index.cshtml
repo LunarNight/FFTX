@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">我的相册页面 获取viewbag:@ViewBag.info
+        <div id="head-bg">
+            <img src="" />
+            <div id="head-name">用户名: @ViewBag.User_Name </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Index")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    
+    <div id="content" style="border:#4cff00 solid">
+        <div id="dt">@Html.ActionLink("新建相册", "creatAlbum")</div>
+        <div id="detail">
+            @if ((ViewBag.list != null) && (ViewBag.list.Count != 0))
+            {
+                foreach (Album al in ViewBag.list)
+                {
+                  <a href="/Album/openAlbum?album_id=@al.Album_Id">  <div class="album" style="float:left;background-color:#efefef;width:100px;height:130px;margin:3px 8px;">
+	                    <img src="../../Content/1.jpg" style="width:90%;height:70%;margin:5px;"/>
+	                    <div class="album_name" style="width:100%;height:15%;background-color:#0f0;">@al.Album_Name</div>
+                    </div></a>
+                }
+            }
+            
+        </div>
+    </div>
+</body>
+</html>

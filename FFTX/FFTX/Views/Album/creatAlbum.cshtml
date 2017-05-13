@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.Album
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">我的相册页面 获取viewbag:@ViewBag.info
+        <div id="head-bg">
+            <img src="" />
+            <div id="head-name">用户名: @ViewBag.User_Name </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Index")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    
+    <div id="content" style="border:#4cff00 solid">
+        <div id="dt">@Html.ActionLink("返回", "Index")</div>
+        <div id="detail">
+             @using (Html.BeginForm("isCreatSuccess", "Album", FormMethod.Post))
+               {
+                   <p>相册名称:@Html.TextBoxFor(model => model.Album_Name)<br />
+                       相册描述:@Html.TextAreaFor(model=>model.Album_Describe)<br />
+                       相册权限:@Html.TextBoxFor(model =>model.Album_Power)<br />
+                      
+                   <input type="submit" value="创建相册"/>
+                   </p>
+               }
+        </div>
+    </div>
+</body>
+</html>

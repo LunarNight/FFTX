@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">我的相册页面 获取viewbag:@ViewBag.info
+        <div id="head-bg">
+            <img src="" />
+            <div id="head-name">用户名: @ViewBag.User_Name </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Index")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    
+    <div id="content" style="border:#4cff00 solid">
+        <div id="dt">@Html.ActionLink("返回", "Index")</div>
+        <div id="detail">
+            这里应该  遍历所有图片  获取id 显示 获取到的相册id=?
+            
+        </div>
+    </div>
+</body>
+</html>

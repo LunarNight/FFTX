@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FFTXModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FFTXModelStoreContainer">
+    <EntitySet Name="FFTX_Album" EntityType="FFTXModel.Store.FFTX_Album" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FFTX_User" EntityType="FFTXModel.Store.FFTX_User" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="FFTX_Album">
+    <Key>
+      <PropertyRef Name="album_id" />
+    </Key>
+    <Property Name="album_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="nchar" MaxLength="10" />
+    <Property Name="album_name" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="FFTX_User">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="user_name" Type="nchar" MaxLength="10" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.Group
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">我的主页
+        <div id="head-bg"> @ViewBag.se  
+            <img src="" />
+            <div id="head-name">@ViewBag.U </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "Index") </span><span>@Html.ActionLink("我的相册", "Album")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    <div id="menu">
+        <div id="gz">关注 </div>
+        <span><a href>好友圈</a></span><span><a href>未分类</a>
+            
+             @using (Html.BeginForm("addGroup","FFTXIndex", FormMethod.Post))
+             {
+             <p>分组名称: @Html.TextBoxFor(model => model.Group_Name);
+           <input type="submit" value="创建" />
+           
+           </p>
+            }
+            </span>
+    </div>
+    <div id="content">
+        <div id="dt">动态</div>
+        <div id="detail">
+            <ul>
+                <li><div id="us-name">动态发出人名</div><img src="" /><span>照片的详细介绍，用户自行进行编辑，比如发照片的心情等。</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

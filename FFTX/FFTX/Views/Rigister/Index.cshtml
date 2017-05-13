@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+@model FFTX.Models.User
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        注册主页  尚未对信息进行验证 需要ajax来检查帐号是否被注册 JS验证密码一致性<br />
+        @using (Html.BeginForm("Register", "Rigister", FormMethod.Post))
+       {
+           <p>帐号:@Html.TextBoxFor(model => model.User_Id)<br />
+               密码:@Html.PasswordFor(model=>model.User_Password)<br />
+               确认密码:@Html.Password("Confirm_Password")<br />
+               昵称:@Html.TextBoxFor(model =>model.User_Name)<br />
+               找回密码问题:@Html.TextBoxFor(model=>model.Password_Question)<br />
+               找回密码答案:@Html.TextBoxFor(model=>model.Password_Answer)<br />
+           <input type="submit" value="注册"/>
+           </p>
+       }
+       
+    </div>
+</body>
+</html>

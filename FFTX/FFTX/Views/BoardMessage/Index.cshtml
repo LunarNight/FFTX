@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">留言板页面
+        <div id="head-bg">
+            <img src="" />
+            <div id="head-name">用户名: @ViewBag.User_Name </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Album")</span><span>@Html.ActionLink("留言板", "Index")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    <div>
+        留言板:
+
+    </div>
+    <div>
+        留言内容1
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FFTX.Controllers.AdminController" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAEAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.AlbumController" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAQAAAAAAAAEABAAAAAIAAAAAACAAAAAFAACAAAAA=</HashCode>
+      <FileName>Controllers\AlbumController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.BoardMessageController" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBAAAAAEABAAAAAACAAAAAAAAAAAEACAAAAAA=</HashCode>
+      <FileName>Controllers\BoardMessageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.FFTXIndexController" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAABAAAAAAAAAAAEAAAAIAEACCAAAAA=</HashCode>
+      <FileName>Controllers\FFTXIndexController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.FindPwdController" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\FindPwdController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.FriendController" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAABAAAAAAAAAEAAAARAAA=</HashCode>
+      <FileName>Controllers\FriendController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.LoginController" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.MailController" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAgEEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MailController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.ManageController" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAEAAAAAAAAAAAAAAAAAAAAEACCQAAAA=</HashCode>
+      <FileName>Controllers\ManageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.OtherFunctionController" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAQAAAAIAAAACEAAAAAAAA=</HashCode>
+      <FileName>Controllers\OtherFunctionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.PhotoCommentController" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAABAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PhotoCommentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.PhotoController" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAACAAAAAAAAAAAABBAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PhotoController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Controllers.RigisterController">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\RigisterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.MvcApplication" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAIQAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Admin">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAIBAAAAAAAAA=</HashCode>
+      <FileName>Models\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Album" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAgAAQAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\Album.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Comment" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAABAAAAAAAAAAAAAAACAiAAAIAAAgAgAAAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Friend" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAEAAAACAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Friend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Group" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Mail" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAIAAAAAAAAAggAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Message" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAABAAwAAAAQAABEAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Photo" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAABAAAAAAAAAgIAAAAAAEABAAAAAAAABAAA=</HashCode>
+      <FileName>Models\Photo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.PhotoShare" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAACAAABAAAAAAAAAAAEAAAAAAIFAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PhotoShare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.Request">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.Models.User" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAGBAAAAAAAAAAAAAAAABAICAAAAIAIAAAAEgAAAAI=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.AdminSql" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsSql\AdminSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.AlbumSql" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAQAAIAAAAAAAAAIAAAAAAAAAQA=</HashCode>
+      <FileName>ModelsSql\AlbumSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.CommentSql" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAABAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>ModelsSql\CommentSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.FriendSql" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAKBAAA=</HashCode>
+      <FileName>ModelsSql\FriendSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.GroupSql" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACgAAAEAAAAAACBAAAAAAAAAAAIAAAAAAEAA=</HashCode>
+      <FileName>ModelsSql\GroupSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.MailSql" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>ModelsSql\MailSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.MessageSql" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ModelsSql\MessageSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.PhotoShareSql" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAIA=</HashCode>
+      <FileName>ModelsSql\PhotoShareSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.PhotoSql">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAgAAAAAIAADgAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsSql\PhotoSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.SqlDB">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAFAAAQQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsSql\SqlDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FFTX.ModelsSql.UserSql" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAICAAAAgAAAAAACQAAAAAAAAQIAAAAAA=</HashCode>
+      <FileName>ModelsSql\UserSql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,43 @@
+﻿@model FFTX.Models.User
+@{
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <div>
+       这是一个登录的主页[
+    </div>
+    <div>
+       @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+       {
+           <p>帐号:@Html.TextBoxFor(model => model.User_Id)
+               密码:@Html.PasswordFor(model=>model.User_Password)
+           <input type="submit" value="登录" />
+           <input type="submit" value="注册" onclick="this.form.action=/Rigister/" />
+           </p>
+       }
+        <a href="/Login/forgetPassword">忘记密码测试bool</a>
+        <a href="/FindPwd/ConfirmInfo">忘记密码</a>
+    </div>
+
+    <div>测试上传专用
+
+    @using (Html.BeginForm("Upload", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <br />
+    <span>上传文件</span>
+    <br />
+    <input type="file" name="file" id="fileInput"/> //onchange="fileChange(this)" 也可以及时校验
+    <input id="btn" type="submit" value="提交"/>
+    }
+
+    </div>
+</body>
+</html>

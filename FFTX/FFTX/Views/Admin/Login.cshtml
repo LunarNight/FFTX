@@ -1,0 +1,25 @@
+﻿@model FFTX.Models.Admin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    管理员登录页面!
+    @using (Html.BeginForm("confirmLogin", "Admin", FormMethod.Post))
+       {
+           <p>帐号:@Html.TextBoxFor(model => model.Admin_Id)
+               密码:@Html.PasswordFor(model=>model.Admin_Password)
+           <input type="submit" value="登录" />
+           </p>
+       }
+    <div>
+        
+    </div>
+</body>
+</html>

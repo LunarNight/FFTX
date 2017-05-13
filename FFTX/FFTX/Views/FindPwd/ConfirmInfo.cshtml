@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+@model FFTX.Models.User
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("forgetPassword", "FindPwd", FormMethod.Post))
+       {
+           <p> 
+               请输入帐号: @Html.TextBoxFor(model => model.User_Id)<br />
+               请输入密码问题: @Html.TextBoxFor(model => model.Password_Question)<br />
+               请输入密码答案: @Html.TextBoxFor(model => model.Password_Answer)<br />
+               <input type="submit" value="确定" />
+           </p>
+       }
+    </div>
+</body>
+</html>
