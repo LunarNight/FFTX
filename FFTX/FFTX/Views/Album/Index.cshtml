@@ -8,11 +8,75 @@
 <head>
     <title>Index</title>
     <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+    <style type="text/css">
+.album{
+	float:left;
+    background-color:#efefef;
+    width:100px;
+    height:130px;
+	margin:3px 8px;
+}
+.album img{
+	width:90%;
+	height:70%;
+	margin:5px;
+	
+}
+.album .album_name{
+	width:100%;
+	height:15%;
+	background-color:#0f0;
+}
+.album .items{
+	margin-top:-120px;
+	margin-left:60px;
+	
+}
+.button {
+	display: none;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Helvetica, sans-serif;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #efefef;
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.items .one_item{
+	background-color:#efefef;
+	z-index:9;
+	width:60px;
+	height:20px;
+	margin-left:-30px;
+}
+.items .item_show{
+	display:none;
+}
+.confirmDelete{
+	display:none;
+	position:absolute;
+	top:400px;
+    right:500px;
+    width:300px;
+    height:150px;
+    background-color:#efefef;
+    text-align:center;
+}
+</style>
 </head>
-<body>
+<body> 
     <div id="head">我的相册页面 获取viewbag:@ViewBag.info
         <div id="head-bg">
-            <img src="" />
+            <img src="@(((User)Session["user"]).User_HeadImg)" />
             <div id="head-name">用户名: @ViewBag.User_Name </div>
         </div>
         <div id="nav">
@@ -23,18 +87,67 @@
     <div id="content" style="border:#4cff00 solid">
         <div id="dt">@Html.ActionLink("新建相册", "creatAlbum")</div>
         <div id="detail">
+            
             @if ((ViewBag.list != null) && (ViewBag.list.Count != 0))
             {
                 foreach (Album al in ViewBag.list)
                 {
-                  <a href="/Album/openAlbum?album_id=@al.Album_Id">  <div class="album" style="float:left;background-color:#efefef;width:100px;height:130px;margin:3px 8px;">
-	                    <img src="../../Content/1.jpg" style="width:90%;height:70%;margin:5px;"/>
-	                    <div class="album_name" style="width:100%;height:15%;background-color:#0f0;">@al.Album_Name</div>
-                    </div></a>
+                    <div class="album">
+	                    <a href="/Album/openAlbum?album_id=@al.Album_Id"> <img src="@al.Album_Cover" /></a>
+	                    <div class="album_name">@al.Album_Name</div>
+	                    <div class="items">
+		                    <button class="button">≡</button>
+		                    <div class="item_show">
+			                    <button class="one_item delete" value="@al.Album_Id">删除</button>
+			                    <button class="one_item rename" value="@al.Album_Id">重命名</button>
+		                    </div>
+	                    </div>
+                    </div>
                 }
             }
-            
+            <div class="confirmDelete">
+                确认删除<br/><br/><br/>
+                <span><a id = "delete_a"href="/Album/deleteAlbum?album_id=">确定</a></span> &nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp<span id = 'cancel'>取消</span>
+            </div>
         </div>
     </div>
+    <script type="text/javascript">
+
+    //为图片添加Over事件
+    var albums = document.getElementsByClassName('album');
+    for (var i = 0; i < albums.length; i++) {
+        albums[i].onmouseover = function showButton() {
+            //鼠标移动在照片上  显示删除和重命名按钮
+            this.childNodes[5].childNodes[3].style.display = 'inline-block';
+        }
+
+        albums[i].onmouseout = function hiddenButton() {
+            console.log('隐藏 菜单');
+
+            this.childNodes[5].childNodes[3].style.display = 'none';
+        }
+    }
+    //删除按钮
+    var deletes = document.getElementsByClassName('delete');
+    var delete_a = document.getElementById('delete_a');
+    var delete_div = document.getElementsByClassName('confirmDelete');
+    for (var i = 0; i < deletes.length; i++) {
+        console.log(deletes[i].value);
+        //点击删除  将photo id 传入a标签  并显示确定与取消
+        deletes[i].onclick = function () {
+            console.log("此删除按钮所对id:" + this.value);
+            delete_div[0].style.display = 'none';
+            delete_div[0].style.display = 'inline-block';
+            delete_a.href = delete_a.href + this.value;
+        }
+    }
+    //取消按钮
+    var cancel_ = document.getElementById('cancel');
+    cancel_.onclick = function () {
+        delete_div[0].style.display = 'none';
+    }
+    //重命名按钮
+    </script>
 </body>
 </html>

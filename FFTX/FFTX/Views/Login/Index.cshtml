@@ -12,7 +12,8 @@
 </head>
 <body>
     <div>
-       这是一个登录的主页[
+       这是一个登录的主页<br />
+        <a href="/Photo/Index">照片处理</a>
     </div>
     <div>
        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
@@ -23,7 +24,6 @@
            <input type="submit" value="注册" onclick="this.form.action=/Rigister/" />
            </p>
        }
-        <a href="/Login/forgetPassword">忘记密码测试bool</a>
         <a href="/FindPwd/ConfirmInfo">忘记密码</a>
     </div>
 

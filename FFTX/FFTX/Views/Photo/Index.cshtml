@@ -3,14 +3,79 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>Index</title>
+<style>
+
+</style>
 </head>
 <body>
-    <div>
+
+<p>图片:</p>
+
+<img  id = "kedaya" src="@ViewBag.photo.Photo_Src"  width="200" height="200">
+
+<p><strong>下面是canvas</strong> <button>下载</button></p>
+<div style="width:600px; height:450px; overflow:auto;z-index:3;position:absolute;">
+<canvas id="myCanvas" style="border:2px solid gray" >your browser does not support the canvas tag </canvas>
+</div>
+<script type="text/javascript">
+
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    var img = document.getElementById("kedaya");
+
+    //图片加载后  进行绘制
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        //根据img标签后去 image对象
+        var image = new Image();
+        image.src = img.src;
+        var canvas = document.getElementById('myCanvas');
+        //使canvas变成图片原本大小
         
-    </div>
+        
+        //保存图片
+        // 图片导出为 png 格式
+        var type = 'jpg';
+
+        //更改后缀名
+        var fixtype = function (type) {
+            type = type.toLocaleLowerCase().replace(/jpg/i, 'jpeg');
+            var r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+        }
+        //替换后缀名
+        var imgData = canvas.toDataURL("image/png").replace(fixtype(type), "image/octet-stream");
+
+        //本地保存图片
+        var saveFile = function (data, filename) {
+            var link = document.createElement('a');
+            link.href = data;
+            link.download = filename;
+
+            //模拟鼠标点击事件  进行下载
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            link.dispatchEvent(event);
+           
+        }
+        var filename = new Date().toLocaleDateString() + '.' + type;
+        
+        //下载
+        // saveFile(imgData, filename);
+
+        /*
+            弹出一个新页面  显示图片
+            var imgData = canvas.toDataURL(type);
+            var w = window.open('about:blank', 'image from canvas');
+            w.document.write("<img src='" + imgData + "' alt='from canvas'/>");
+        */
+    }
+    
+
+
+</script>
+
 </body>
 </html>

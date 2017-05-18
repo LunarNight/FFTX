@@ -32,11 +32,13 @@ namespace FFTX.Controllers
         public ActionResult openAlbum()
         {
             Album al = new Album();
+            AlbumSql asql = new AlbumSql();
             string id = Request.QueryString["album_id"];
             al.Album_Id = Int32.Parse(id);
             al.User_Id = ((User)Session["user"]).User_Id;
-
-            //ViewBag.photo_list = ***;
+            List<Photo> list = asql.getPhotosById(al);
+            ViewBag.photo_list = list;
+            ViewBag.album_id = al.Album_Id;
             return View(); 
         }
 

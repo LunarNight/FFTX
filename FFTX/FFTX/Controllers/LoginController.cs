@@ -31,12 +31,13 @@ namespace FFTX.Controllers
             {
                 User u = us.getUserInfo(user);
                 //应该验证是否封号
+                
                 if (u.User_State == 0)
                 {
                     //return 封号view;
                     return View("IdBlocked");
                 }
-             
+                
                 Session["LoginState"] = "已登录";
                 //获取用户的所有信息.  存放session
                 Session["user"] = (User)u;

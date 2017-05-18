@@ -19,11 +19,13 @@ namespace FFTX.ModelsSql
             int result = SqlDB.ExecuteNonQuery(sql);
             return result;
         }
+
         //重命名相册
         public bool renameAlbum(Album album)
         {
             return true;
         }
+
         //相册是否存在(好像不需要  文档没有此方法) 是否要验证相册和用户对应  防止恶意链接查看相册 
         public bool isExitAlbum(Album album)
         {
@@ -37,11 +39,13 @@ namespace FFTX.ModelsSql
             return false;
 
         }
+
         //删除相册
         public bool deleteAlbum(Album album)
         {
             return true;
         }
+
         //得到相册信息
         public List<Album> getAlbumInfo(Album album)
         {
@@ -69,6 +73,32 @@ namespace FFTX.ModelsSql
             }
             return null;
         }
-        
+
+        public List<Photo> getPhotosById(Album album)
+        {
+
+            string sql = string.Format("select * from FFTX_Photo where album_id = '{0}'", album.Album_Id);
+
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            if (sqldr != null && sqldr.HasRows)
+            {
+                List<Photo> list = new List<Photo>();
+                while (sqldr.Read())    //读数据
+                {
+                    Photo p = new Photo(); //获取对象来存放数据
+                    p.Photo_Id = sqldr.GetInt32(0);
+                    p.Photo_Src = sqldr.GetValue(1) + "";
+                    p.Photo_Time = sqldr.GetDateTime(2);
+                    p.album_id = sqldr.GetInt32(3);
+                    p.Photo_Describe = sqldr.GetValue(4) + "";
+                    p.Photo_Like = sqldr.GetInt32(5);
+                    p.Photo_Label = sqldr.GetInt32(6);
+
+                    list.Add(p);
+                }
+                return list;
+            }
+            return null;
+        }
     } 
 }
