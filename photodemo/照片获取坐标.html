@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+
+<p>图片使用高斯模糊效果:</p>
+
+<img  id = "kedaya" src="2.jpg" >
+<canvas id="waterCanvas" style="border:0px solid gray" >your browser does not support the canvas tag </canvas>
+<p><strong>下面是canvas<div id="p"></div></strong></p>
+<div style="width:600px; height:450px; overflow:auto;z-index:3;position:absolute;">
+<canvas id="myCanvas" style="border:2px solid gray" >your browser does not support the canvas tag </canvas>
+</div>
+
+<script type="text/javascript">
+
+var canvas=document.getElementById('myCanvas');
+var ctx=canvas.getContext('2d');
+var img=document.getElementById("kedaya");
+
+//图片加载后  进行绘制
+img.onload = function() {
+	ctx.drawImage(img,0,0);
+	//根据img标签后去 image对象
+	var image = new Image();
+	image.src = img.src;
+	var canvas=document.getElementById('myCanvas');
+	
+	//保存图片
+	// 图片导出为 png 格式
+	var type = 'png';
+	//var imgData = canvas.toDataURL(type);
+	/**
+	 * 获取mimeType
+	 */
+
+} 
+canvas.width="2000";
+canvas.height="1000";
+//report the mouse position on click 
+
+ canvas.addEventListener("click", function (evt) { 
+  var mousePos = getMousePos(canvas, evt); 
+  document.getElementById("p").innerText = "X="+mousePos.x+","+"y="+mousePos.y;
+ }, false); 
+
+ //Get Mouse Position 
+ function getMousePos(canvas, evt) { 
+   var rect = canvas.getBoundingClientRect(); 
+
+   return { 
+     x: evt.clientX - rect.left * (canvas.width / rect.width),
+     y: evt.clientY - rect.top * (canvas.height / rect.height)
+   }
+ }
+
+ //水印画板
+var wcanvas=document.getElementById('waterCanvas');
+wctx=wcanvas.getContext('2d');
+wctx.font="20px Georgia";
+var txt = "hello world"
+wctx.fillText(txt,10,50);
+
+
+wwlocation = new Object();
+
+wwlocation.twidth =  parseInt(wctx.measureText(txt).width);
+wwlocation.theight =  30;
+//水印字初始位置
+
+wwlocation.real_x = 0;
+wwlocation.real_y = 0;
+
+//移动的距离
+wwlocation.move_x = 0;
+wwlocation.move_y = 0 ;
+
+//存储的坐标点
+wwlocation.store_x = 0;
+wwlocation.store_y = 0;
+
+//点击获得当前坐标点
+wcanvas.addEventListener("click", function (evt) { 
+  var mousePos = getMousePos(wcanvas, evt); 
+  wwlocation.store_x = parseInt(mousePos.x);
+  wwlocation.store_y = parseInt(mousePos.y);
+  document.getElementById("p").innerText = "X="+mousePos.x+","+"y="+mousePos.y;
+ }, false); 
+ 
+ //按下鼠标  一直获取坐标点
+wcanvas.addEventListener("mousedown",function (evt) { 
+  
+  //移动的距离
+  
+  wcanvas.addEventListener("mousemove",function (evt) {     
+  var mousePos = getMousePos(wcanvas, evt); 
+  console.log("点击画布x:"+mousePos.x+"点击画布y:"+mousePos.y);
+  wwlocation.move_x = parseInt(mousePos.x) - wwlocation.store_x;
+  wwlocation.move_y = parseInt(mousePos.y) - wwlocation.store_y;
+  
+  console.log("移动的x:"+wwlocation.move_x+"移动的y:"+wwlocation.move_y);
+  //获取文字原位置
+  
+  var w = wwlocation.real_x;
+  var w2 = wwlocation.real_x + wwlocation.twidth;
+  var h = wwlocation.real_y;
+  var h2 = wwlocation.real_y+wwlocation.theight;
+  var textData = wctx.getImageData(w,h,w2,h2);
+  //实现移动  (绘制)
+  wwlocation.real_x = wwlocation.real_x + wwlocation.move_x;
+  wwlocation.real_y = wwlocation.real_y + wwlocation.move_y;
+  console.log();
+  //重画
+  wctx.putImageData(textData,wwlocation.real_x,wwlocation.real_y);
+  },false);
+  
+  }, false); 
+ 
+ //鼠标抬起 
+ wcanvas.addEventListener("mouseup",function (evt) { 
+ 
+  //还原数据
+  wwlocation.move_x = 0;
+  wwlocation.move_y = 0;
+  wwlocation.store_x = 0;
+  wwlocation.store_y = 0;
+  console.log("删除事件监听");
+  console.log("删除事件监听");
+  console.log("删除事件监听");
+  wcanvas.removeEventListener("mousemove",function (evt){
+	console.log("????????????")
+  },false);
+  
+
+ }, false); 
+</script>
+
+</body>
+</html>

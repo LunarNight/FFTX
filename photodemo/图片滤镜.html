@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+
+<p>??</p>
+
+<img  id = "kedaya" width="200px" src="2.jpg" >
+<p><strong>œ¬√Ê «canvas<div id="p"></div></strong></p>
+<div style="width:600px; height:450px; overflow:auto;z-index:3;position:absolute;">
+
+<canvas id="myCanvas" style="border:2px solid gray" >your browser does not support the canvas tag </canvas>
+</div>
+
+<script type="text/javascript">
+
+var canvas=document.getElementById('myCanvas');
+var ctx=canvas.getContext('2d');
+var img=document.getElementById("kedaya");
+ctx.fillText("asasas",10,50);
+img.onload = function(){
+	ctx.drawImage(img,0,0);
+	ctx.fillText("asasas",10,50);
+}
+canvas.width="2000";
+canvas.height="1000";
+
+
+ canvas.addEventListener("click", function (evt) { 
+  var mousePos = getMousePos(canvas, evt); 
+  document.getElementById("p").innerText = "X="+mousePos.x+","+"y="+mousePos.y;
+ }, false); 
+
+ //Get Mouse Position 
+ function getMousePos(canvas, evt) { 
+   var rect = canvas.getBoundingClientRect(); 
+
+   return { 
+     x: evt.clientX - rect.left * (canvas.width / rect.width),
+     y: evt.clientY - rect.top * (canvas.height / rect.height)
+   }
+ }
+
+</script>
+
+
+</body>
+</html>

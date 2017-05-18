@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+<canvas id="mycanvas" style="border:2px solid gray;z-index:4 " >your browser does not support the canvas tag </canvas>
+<canvas id="canvas" style="border:2px solid gray;position:absolute;left:8px;z-index:5" >your browser does not support the canvas tag </canvas>
+
+<input type='text' id="water_content" />
+<input type='button' id = 'water_show' value="预览" />
+<input type='button' id = 'water_use' value="应用" />
+<script type="text/javascript">
+
+
+var mycanvas=document.getElementById('mycanvas');
+var mctx=mycanvas.getContext('2d');
+mctx.fillStyle="#efef00";
+mctx.fillRect(0,0,250,100);
+
+
+var canvas=document.getElementById('canvas');
+var ctx=canvas.getContext('2d');
+ctx.font="20px Georgia";
+txt = " "
+ctx.fillText(txt,0,20);
+var x = 5;
+
+
+
+wwlocation = new Object();
+
+//水印字初始位置
+
+wwlocation.real_x = 0;
+wwlocation.real_y = 20;
+
+//移动的距离
+wwlocation.move_x = 0;
+wwlocation.move_y = 0 ;
+
+//存储的坐标点
+wwlocation.store_x = 0;
+wwlocation.store_y = 0;
+
+
+//画板鼠标点击  监听 move监听事件
+canvas.addEventListener('mousedown',function(evt){
+	console.log("real x & y = "+wwlocation.real_x +","+wwlocation.real_y);
+	//获取当前坐标
+	var mousePos = getMousePos(canvas, evt); 
+	wwlocation.store_x = mousePos.x;
+	wwlocation.store_y = mousePos.y;
+	canvas.addEventListener('mousemove',move,false);
+});
+
+//画板鼠标抬起  取消 move监听
+canvas.addEventListener('mouseup',function(evt){
+	//鼠标抬起   保存移动的位置
+	wwlocation.real_x = wwlocation.real_x+wwlocation.move_x;
+	wwlocation.real_y = wwlocation.real_y+wwlocation.move_y;
+	console.log("real x & y = "+wwlocation.real_x +","+wwlocation.real_y+"鼠标抬起");
+	//初始化移动的位置
+	wwlocation.move_x = 0;
+	wwlocation.move_y = 0;
+	canvas.removeEventListener('mousemove',move,false);
+})
+
+//MOVE 函数
+function move (evt){
+		//获取移动后的点
+		var mousePos = getMousePos(canvas, evt);
+		wwlocation.move_x =  mousePos.x - wwlocation.store_x;
+		wwlocation.move_y = mousePos.y - wwlocation.store_y ;
+		ctx.clearRect(0,0,500,500);
+		console.log("移动移动");
+		//重新绘制
+		ctx.fillText(txt,wwlocation.real_x+wwlocation.move_x,wwlocation.real_y+wwlocation.move_y);
+		
+}
+
+ function getMousePos(canvas, evt) { 
+   var rect = canvas.getBoundingClientRect(); 
+   return { 
+     x: evt.clientX - rect.left * (canvas.width / rect.width),
+     y: evt.clientY - rect.top * (canvas.height / rect.height)
+   }
+ }
+//***************          相关按钮      **********************
+//预览按钮
+ document.getElementById('water_show').onclick = function(){
+	ctx.clearRect(0,0,500,500);
+	txt = document.getElementById('water_content').value;
+	ctx.fillText(txt,0,20);
+	wwlocation.real_x = 0;
+	wwlocation.real_y = 20;
+}
+
+</script>
+
+</body>
+</html>
