@@ -1,0 +1,178 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <!-- 引入 Bootstrap -->
+	<link href="/Content/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/jquery.js"></script>
+	<!-- 包括所有已编译的插件 -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/my.css" />
+    <style type="text/css">
+.album{
+	float:left;
+    background-color:#efefef;
+    width:200px;
+    height:240px;
+	margin:3px 8px;
+    border:solid #808080;
+}
+.album img{
+	width:93%;
+	height:80%;
+	margin:5px;
+	
+}
+.album .album_name{
+	width:100%;
+	height:15%;
+    text-align:center;
+    font-size:16px;
+    font-family:serif Arial;
+}
+.album .items{
+	margin-top:-120px;
+	margin-left:60px;
+	
+}
+.button {
+	display: none;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Helvetica, sans-serif;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #efefef;
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.items .one_item{
+	background-color:#efefef;
+	z-index:9;
+	width:60px;
+	height:20px;
+	margin-left:-30px;
+}
+.items .item_show{
+	display:none;
+}
+.confirmDelete{
+	display:none;
+	position:absolute;
+	top:400px;
+    right:500px;
+    width:300px;
+    height:150px;
+    background-color:#efefef;
+    text-align:center;
+}
+</style>
+</head>
+<body> 
+    <nav class="navbar navbar-inverse" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">非凡图像</a>
+			</div>
+			<div id="show_userif">
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="搜索照片">
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
+			</div>
+
+		</div>
+	</nav>
+    <div id="head">
+        <div id="head-bg">
+            <img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" />
+            <div id="head-name">用户名: @(((User)Session["user"]).User_Name) </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Index")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    
+    <div id="content" style="width:85%;background-color:#efefef">
+        <div ><a class="btn btn-info" href="/Album/creatAlbum">新建相册</a></div>
+        <div id="detail">
+            
+            @if ((ViewBag.list != null) && (ViewBag.list.Count != 0))
+            {
+                foreach (Album al in ViewBag.list)
+                {
+                    <div class="album">
+	                    <a href="/Album/openAlbum?album_id=@al.Album_Id"> <img src="@al.Album_Cover" /></a>
+	                    <div class="album_name">@al.Album_Name</div>
+	                    <div class="items">
+		                    <button class="button">≡</button>
+		                    <div class="item_show">
+			                    <button class="one_item delete" value="@al.Album_Id">删除</button>
+			                    <button class="one_item rename" value="@al.Album_Id">重命名</button>
+		                    </div>
+	                    </div>
+                    </div>
+                }
+            }
+            <div class="confirmDelete">
+                确认删除<br/><br/><br/>
+                <span><a id = "delete_a"href="/Album/deleteAlbum?album_id=">确定</a></span> &nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp<span id = 'cancel'>取消</span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    //为图片添加Over事件
+    var albums = document.getElementsByClassName('album');
+    for (var i = 0; i < albums.length; i++) {
+        albums[i].onmouseover = function showButton() {
+            //鼠标移动在照片上  显示删除和重命名按钮
+            this.childNodes[5].childNodes[3].style.display = 'inline-block';
+        }
+
+        albums[i].onmouseout = function hiddenButton() {
+            console.log('隐藏 菜单');
+
+            this.childNodes[5].childNodes[3].style.display = 'none';
+        }
+    }
+    //删除按钮
+    var deletes = document.getElementsByClassName('delete');
+    var delete_a = document.getElementById('delete_a');
+    var delete_div = document.getElementsByClassName('confirmDelete');
+    for (var i = 0; i < deletes.length; i++) {
+        console.log(deletes[i].value);
+        //点击删除  将photo id 传入a标签  并显示确定与取消
+        deletes[i].onclick = function () {
+            console.log("此删除按钮所对id:" + this.value);
+            delete_div[0].style.display = 'none';
+            delete_div[0].style.display = 'inline-block';
+            delete_a.href = delete_a.href + this.value;
+        }
+    }
+    //取消按钮
+    var cancel_ = document.getElementById('cancel');
+    cancel_.onclick = function () {
+        delete_div[0].style.display = 'none';
+    }
+    //重命名按钮
+    </script>
+</body>
+</html>

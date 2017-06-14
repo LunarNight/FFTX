@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- 引入 Bootstrap -->
+	<link href="/Content/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/jquery.js"></script>
+	<!-- 包括所有已编译的插件 -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/imageutil.js"  charset="UTF-8"></script>
+</head>
+<body>
+    <div id ="图片处理的画板" style="overflow:scroll;">
+        <img id ="imgid" src="@ViewBag.photo.Photo_Src" style="display:none" />
+        <canvas id="canvas" style="border:2px solid yellow;position:absolute;right:2px;z-index:4 " >your browser does not support the canvas tag </canvas>
+        <canvas id="watercanvas" style="border:2px solid gray;position:absolute;right:2px;z-index:5" >your browser does not support the canvas tag </canvas>
+        <canvas id="cutcanvas" style="border:2px solid red;position:absolute;right:2px;z-index:5" >your browser does not support the canvas tag </canvas>
+        
+        
+    </div>
+    <div style="color:#259bf3;font-size:20px">
+        如果超出屏幕范围<br />
+        请向下滑动鼠标滚轮
+    </div>
+    <div id ="图片处理功能区" style="position:absolute;left:0;bottom:0;">
+       
+        <span>添加滤镜:</span>
+        <select id="type" onchange="imgFilter()">
+            <option value="Origion" selected>原图</option>
+            <option value="Gray">灰度</option>
+            <option value="Invert">反色</option>
+            <option value="Binarize">黑白色</option>
+            <option value="Brightness">加亮</option>
+        </select> 滤镜功能:通过下拉菜单选择所需要的滤镜.<br />
+        
+        <div class="form-group has-success" style="display:inherit">
+            <input style="margin:4px"type='text' id="water_content"  class="form-control" placeholder="添加水印文字" />
+        </div>
+        <input style="margin:4px"type='button' id = 'water_show'class="btn btn-primary" value="水印预览" onclick='drawText()' />
+        <input style="margin:4px"type='button' id = 'water_use' class="btn btn-info" value="水印添加" onclick='saveText()'/>
+        水印功能:在文本框内输入想添加的水印文字,点击预览文字即出现在图片上,支持文字拖动.
+        <br />
+        
+
+        <input style="margin:4px"type='button' id = 'cut_img' class="btn btn-primary" value="裁剪" onclick='cutImg()' />
+        <input style="margin:4px"type='button' id = 'cut_save'class="btn btn-info" value="应用" onclick='saveCutImg()'/>裁剪功能:点击裁剪然后在图片拖动鼠标选择区域.<br />
+        <button style="margin:4px" id="图片保存" class="btn btn-success" onclick="saveDealImg(@ViewBag.photo.Photo_Id)">保存图片</button>处理完之后请点击保存
+    </div>
+    
+<script type="text/javascript">
+
+    var param = new Object();
+    param.image_canvas_id = "canvas";
+    param.watertext_canvas_id = "watercanvas";
+    param.cut_canvas_id = "cutcanvas";
+    param.img_id = "imgid";
+
+    function $(id) {
+        return (typeof (id) == 'string') ? document.getElementById(id) : id;
+    }
+
+    var img = document.getElementById("imgid");
+    //初始化 
+    window.onload = function () {
+        console.log("图片加载    window");
+
+        util = getImageUtil();
+
+        util.init(param);
+        util.drawImg();
+    }
+    img.onload = function () {
+        console.log("图片加载   img");
+        util = getImageUtil();
+        util.init(param);
+        util.drawImg();
+    }
+    util = getImageUtil();
+    util.init(param);
+    util.drawImg();
+    //添加水印
+    var drawText = function () {
+        util.drawText($('water_content').value);
+
+    }
+    //保存水印
+    var saveText = function () {
+        util.saveText();
+    }
+    //裁剪
+    var cutImg = function () {
+        util.cutImg();
+    }
+    //裁剪保存
+    var saveCutImg = function () {
+        util.saveCutImg();
+    }
+    //滤镜效果
+    var imgFilter = function () {
+        console.log($('type').value);
+        switch ($('type').value) {
+            case 'Origion': util.imgToOrigion(param); break;
+            case 'Gray': util.imgToGray(); break;
+            case 'Invert': util.imgToInvert(); break;
+            case 'Binarize': util.imgToBinarize(); break;
+            case 'Brightness': util.imgToBrightness(); break;
+            case 'xx': util.imgToBinarize(); break;
+            case 'xxx': util.imgToBinarize(); break;
+        }
+    }
+    //
+    var saveDealImg = function (id) {
+        var imgData = document.getElementById("canvas").toDataURL("png");
+        var b64 = imgData.substring(22);
+        b64 = encodeURIComponent(b64);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("Post", "/Photo/saveDealPhoto", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        console.log(id);
+        xmlhttp.send("imgData=" + b64 +"&id=" +id);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                alert(xmlhttp.responseText + "!!!");
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

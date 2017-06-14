@@ -5,39 +5,38 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>Index</title>
+	<meta charset="UTF-8">
+	<title>非凡图像show系统登录</title>
+	<meta name="keywords" content="#">
+	<meta name="content" content="#">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="Content/login.css">
 </head>
-<body>
-    <div>
-       这是一个登录的主页<br />
-        <a href="/Photo/Index">照片处理</a>
+<body class="login_bj" >
+<div class="zhuce_body">
+	<div class="logo"><a href="#"><img src="Content/img/logo.png" width="300" height="126" border="0"></a></div>
+    <div class="zhuce_kong login_kuang">
+    	<div class="zc">
+        	<div class="bj_bai">
+            <h3>登录</h3>
+			@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+		   {
+			   <p>@Html.TextBoxFor(model => model.User_Id,new {@class="kuang_txt",placeholder="用户名"})
+				  @Html.PasswordFor(model=>model.User_Password,new {@class="kuang_txt",placeholder="密码"})
+			   <input type="submit" value="登录" class="btn_zhuce"/>
+			   </p>
+		   }
+   
+            </div>
+        	<div class="bj_right" style="text-align:center">
+                <p style="margin-top:70px">没有账号，<a href="/Rigister">立即注册</a></p><br />
+                <p ><a href="/FindPwd/Index">忘记密码(测试接口)</a></p><br />
+            </div>
+        </div>
+        
     </div>
-    <div>
-       @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-       {
-           <p>帐号:@Html.TextBoxFor(model => model.User_Id)
-               密码:@Html.PasswordFor(model=>model.User_Password)
-           <input type="submit" value="登录" />
-           <input type="submit" value="注册" onclick="this.form.action=/Rigister/" />
-           </p>
-       }
-        <a href="/FindPwd/ConfirmInfo">忘记密码</a>
-    </div>
-
-    <div>测试上传专用
-
-    @using (Html.BeginForm("Upload", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-    <br />
-    <span>上传文件</span>
-    <br />
-    <input type="file" name="file" id="fileInput"/> //onchange="fileChange(this)" 也可以及时校验
-    <input id="btn" type="submit" value="提交"/>
-    }
-
-    </div>
+</div>
 </body>
 </html>

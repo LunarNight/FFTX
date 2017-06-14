@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 using FFTX.Models;
 using FFTX.ModelsSql;
 using System.IO;
+
 namespace FFTX.Controllers
 {
     public class PhotoController : Controller
@@ -23,81 +25,123 @@ namespace FFTX.Controllers
             PhotoSql ps = new PhotoSql();
             //根据 PHOTO ID 获取信息
             ps.getPhotoInfo(p);
-            //扔到前台
+            //扔到前台  照片和用户信息
             ViewBag.photo = p;
+            ViewBag.user = (User)Session["user"];
+
+            //获取此照片所有评论
+            CommentSql csl = new CommentSql();
+            Comment c = new Comment();
+            List<Comment> comment_list = csl.getComments(p.Photo_Id);
+            ViewBag.comment_list = comment_list;
             return View();
         }
         //上传
         public ActionResult uploadPhoto(HttpPostedFileBase file)
         {
+            //相册id
+            int aid = Int32.Parse(Request.Form["album_id"]);
             if (file == null)
             {
-                ViewBag.Msg = "没有文件";
-                return View();
+                return RedirectToAction("openAlbum", "Album", new { album_id = aid });
             }
             else
             {
-                ViewBag.Msg = "有文件";
                 //根据用户名创建文件夹保存照片
-                string user_id = "阿呆";
-                string path = Request.MapPath("~/UserPhoto/" + user_id);
+                string user_id = ((User)Session["user"]).User_Id;
+                string path = Request.MapPath("~/Content/photo/" + user_id);
+                
+                //获取总的秒数
+                DateTime oldTime=new DateTime(1970,1,1);
+                TimeSpan span=DateTime.Now.Subtract(oldTime);
+                double ms = span.TotalMilliseconds;
+                String time = ms.ToString().Split('.')[0];
+
 
                 if (Directory.Exists(path) == false)//如果不存在就创建file文件夹
                 {
                     Directory.CreateDirectory(path);
                 }
-                file.SaveAs(path + "/" + file.FileName);
+                file.SaveAs(path + "/" + time + "(" + file.FileName);//保存文件
 
                 //在数据库中添加一条数据
+                PhotoSql ps = new PhotoSql();
+                Photo p = new Photo();
+                p.Photo_Src = "/Content/photo/" + user_id + "/" + time + "(" + file.FileName;
+                p.Photo_Time = DateTime.Now;
+                p.Photo_Label = 1;//照片标签选取
+                p.album_id = aid; //照片所在相册
+                
+                ps.uploadPhoto(p);
+                return RedirectToAction("openAlbum", "Album", new { album_id = aid });
             }
-
-            return View();
+           
+           
         }
         //重命名
         public ActionResult renamePhoto()
         {
             Photo p = new Photo();
-            string pid = Request.QueryString["photo_id"];
-            p.Photo_Id = Int32.Parse(pid);
-
             PhotoSql ps = new PhotoSql();
-            //重命名 修改数据库中的字段
+            int aid = Int32.Parse(Request.Form["album_id"]);
+            string name = Request.Form["rename_img"];
+            int pid = Int32.Parse(Request.Form["rename_img_id"]);
+            p.Photo_Id = pid;
+            bool result =ps.getPhotoInfo(p);
+            if (!result)
+                return Content("命名失败");
 
-            //修改文件的文件名
-            bool result = ps.renamePhoto(p);
-            if (result)
-                return RedirectToAction("Index");
+            string oldsrc = p.Photo_Src;
+            //Content/xx/12321424( 
+            string front = oldsrc.Substring(0, oldsrc.LastIndexOf("(") + 1);
+            //.png
+            string end = oldsrc.Substring(oldsrc.LastIndexOf("."));
+            //新的路径 (文件名改变) 保存到数据库。。
+            string newsrc = front + name + end;
+            /*   好像用不到这俩东西啊。。。*/
+            //原来文件名
+            string filename = oldsrc.Substring(oldsrc.LastIndexOf("/"));
+            //新的文件名
+            string newname = filename.Substring(0,filename.IndexOf("(")+1)+name+end;
+
+            string path = Request.MapPath("~");
+
+            //改变文件名
+            System.IO.File.Move(path+oldsrc,path+newsrc);
+            //update 数据库
+            p.Photo_Src = newsrc;
+
+            ps.renamePhoto(p);;
+            bool r = true;
+            if (r)
+                return RedirectToAction("openAlbum", "Album" ,new { album_id = aid });
             else
                 return Content("删除失败");
         }
         //删除
         public ActionResult deletePhoto()
         {
+            int aid = Int32.Parse(Request.Form["album_id"]);
+            int pid = Int32.Parse(Request.Form["delete_img_id"]);
+
             Photo p = new Photo();
-            string pid = Request.QueryString["photo_id"];
-            p.Photo_Id = Int32.Parse(pid);
-            string aid = Request.QueryString["album_id"];
             PhotoSql ps = new PhotoSql();
+            p.Photo_Id = pid;
             //获取照片信息
             ps.getPhotoInfo(p);
-            //删除 photo数据库中信息
+            //删除 有关此照片的所有信息(分享 评论 点赞)
             bool result = ps.deletePhoto(p);
-
-            //删除 点赞表中的信息
-            //code..
-            
-            //删除 图片分享 ?? 删不删呢.. 弄一张 照片已删除的照片 可以不删除分享.
-
-            //删除 图片评论  同上
-
             if (result){
                 //把原图片文件删除
-                string filePath = "";
-
-                int k = p.Photo_Src.LastIndexOf("/");
-                string fileName = p.Photo_Src.Substring(k+1);
-
+                string path = Request.MapPath("~");
+                //获取项目运行路径
+                FileInfo file = new FileInfo(path+p.Photo_Src);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
                 
+
                 return RedirectToAction("openAlbum", "Album", new { album_id = aid });
             }
                 
@@ -105,23 +149,44 @@ namespace FFTX.Controllers
                 return Content("删除失败");
             
         }
-        //裁剪
-        public ActionResult cutPhoto(Photo p)
+        //处理图片
+        public ActionResult dealPhoto()
         {
+            Photo p = new Photo();
+            string id = Request.QueryString["photo_id"];
+            if (id != null)
+                p.Photo_Id = Int32.Parse(id);
+            PhotoSql ps = new PhotoSql();
+            //根据 PHOTO ID 获取信息
+            ps.getPhotoInfo(p);
+            //扔到前台  照片和用户信息
+            ViewBag.photo = p;
+            ViewBag.user = (User)Session["user"];
             //修改图片文件
             return View();
         }
-        //滤镜
-        public ActionResult addFilterPhoto(Photo p)
+        // ajax实现
+        public ActionResult saveDealPhoto(string imgData, string id)
         {
-            //修改图片文件
-            return View();
+
+            PhotoSql ps = new PhotoSql();
+            Photo p = new Photo();
+            p.Photo_Id = Int32.Parse(id);
+            ps.getPhotoInfo(p);
+            string path = Request.MapPath("~");
+            try
+            {
+                FileStream fs = System.IO.File.Create(path+p.Photo_Src);
+                byte[] bytes = Convert.FromBase64String(imgData);
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Content("修改成功,请清除缓存或重命名");
         }
-        //水印 
-        public ActionResult waterMarkPhoto(Photo p)
-        {
-            //修改图片文件
-            return View();
-        }
+
     }
 }

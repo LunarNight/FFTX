@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.User
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+</head>
+<body>
+    <div id="head">
+        <div id="head-bg">  
+            <img src="@ViewBag.user.User_HeadImg" />
+            <div id="head-name">@ViewBag.U </div>
+        </div>
+        <div id="nav">
+            <span>@Html.ActionLink("我的主页", "Index") </span><span>@Html.ActionLink("我的相册", "Album")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
+        </div>
+    </div>
+    <div id="menu">
+        <div id="gz">关注 </div>
+        <div> @using (Html.BeginForm("searchFriend", "FFTXIndex", FormMethod.Post))
+              {
+                  <p>查找好友id:@Html.TextBoxFor(model => model.User_Id)
+                     <input type="submit" value="查找" /></p>
+              }
+        </div>
+        <span><a href>好友圈</a></span><br />
+            @if ((ViewBag.group_list != null) && (ViewBag.group_list.Count != 0))
+                {
+                    foreach (Group g in ViewBag.group_list)
+                    {
+                      <a href="#">  
+                          <span>@g.Group_Name:@g.Group_Friend_Num 人</span>
+
+                      </a>
+                    }
+                }
+        <span> <a href="/FFTXIndex/creatGroup">创建分组</a></span><br />
+    </div>
+    <div id="content">
+        <div id="dt">动态</div>
+        <div id="detail">
+            <ul>
+                <li><div id="us-name">动态发出人名</div><img src="" /><span>照片的详细介绍，用户自行进行编辑，比如发照片的心情等。</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,25 +4,46 @@
 @model FFTX.Models.User
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
-    <title>Index</title>
+	<meta charset="UTF-8">
+	<title>非凡图像show系统注册</title>
+	<meta name="keywords" content="#">
+	<meta name="content" content="#">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="Content/login.css">
 </head>
-<body>
-    <div>
-        注册主页  尚未对信息进行验证 需要ajax来检查帐号是否被注册 JS验证密码一致性<br />
-        @using (Html.BeginForm("Register", "Rigister", FormMethod.Post))
-       {
-           <p>帐号:@Html.TextBoxFor(model => model.User_Id)<br />
-               密码:@Html.PasswordFor(model=>model.User_Password)<br />
-               确认密码:@Html.Password("Confirm_Password")<br />
-               昵称:@Html.TextBoxFor(model =>model.User_Name)<br />
-               找回密码问题:@Html.TextBoxFor(model=>model.Password_Question)<br />
-               找回密码答案:@Html.TextBoxFor(model=>model.Password_Answer)<br />
-           <input type="submit" value="注册"/>
-           </p>
-       }
+<body class="login_bj" >
+
+<div class="zhuce_body">
+	<div class="logo"><a href="#"><img src="Content/img/logo.png" width="300" height="126" border="0"></a></div>
+    <div class="zhuce_kong">
+    	<div class="zc">
+        	<div class="bj_bai">
+            <h3>欢迎注册</h3>
+			 @using (Html.BeginForm("Register", "Rigister", FormMethod.Post))
+			   {
+				    @Html.TextBoxFor(model => model.User_Id,new {@class="kuang_txt",placeholder="帐号"})<br />
+					   @Html.PasswordFor(model=>model.User_Password,new {@class="kuang_txt",placeholder="密码"})<br />
+					   <input type="password" class="kuang_txt" placeholder="确认密码" />
        
+					   @Html.TextBoxFor(model =>model.User_Name,new {@class="kuang_txt",placeholder="昵称"})<br />
+					   @Html.TextBoxFor(model=>model.Password_Question,new {@class="kuang_txt",placeholder="找回密码问题"})<br />
+					   @Html.TextBoxFor(model=>model.Password_Answer,new {@class="kuang_txt",placeholder="找回密码答案"})<br />
+				   <input type="submit" value="注册" class="btn_zhuce"/>
+				   
+			   }
+       	  	  
+            </div>
+        	<div class="bj_right">
+
+                <a href="/Login" style="margin-top:150px">已有账号？立即登录</a>
+            
+            </div>
+        </div>
+        
     </div>
+
+</div>
 </body>
 </html>

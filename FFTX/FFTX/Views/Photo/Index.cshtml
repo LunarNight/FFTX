@@ -1,81 +1,200 @@
 ﻿@{
     Layout = null;
 }
+@model FFTX.Models.Comment
 
+@using FFTX.Models
 <!DOCTYPE html>
+
 <html>
 <head>
-<style>
-
-</style>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- 引入 Bootstrap -->
+	<link href="/Content/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/jquery.js"></script>
+	<!-- 包括所有已编译的插件 -->
+	<script src="/Content/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Content/imageutil.js"  charset="UTF-8"></script>
 </head>
 <body>
+    <div>
+        照片id: @ViewBag.photo.Photo_Id <br />
+        用户id: @ViewBag.user.User_Id<br />
 
-<p>图片:</p>
+    </div>
+    <div id ="图片处理的画板">
+        <img id ="imgid" src="@ViewBag.photo.Photo_Src" style="display:none" />
+        <canvas id="canvas" style="border:2px solid yellow;position:absolute;right:2px;z-index:4 " >your browser does not support the canvas tag </canvas>
+        <canvas id="watercanvas" style="border:2px solid gray;position:absolute;right:2px;z-index:5" >your browser does not support the canvas tag </canvas>
+        <canvas id="cutcanvas" style="border:2px solid red;position:absolute;right:2px;z-index:5" >your browser does not support the canvas tag </canvas>
+        
+        
+    </div>
+    <div id ="图片处理功能区">
+        
+        <input type='text' id="water_content" placeholder="水印内容" />
+        <input type='button' id = 'water_show' value="水印预览" onclick='drawText()' />
+        <input type='button' id = 'water_use' value="水印添加" onclick='saveText()'/>
+        <br />
+        <input type='button' id = 'cut_img' value="裁剪" onclick='cutImg()' />
+        <input type='button' id = 'cut_save' value="应用" onclick='saveCutImg()'/>
+        <br />
+        
+        <select id="type" onchange="imgFilter()">
+            <option value="Origion" selected>原图</option>
+            <option value="Gray">灰度</option>
+            <option value="Invert">反色</option>
+            <option value="Binarize">黑白色</option>
+            <option value="Brightness">加亮</option>
+            
+        </select>
+    </div>
+    <div id="图片保存">保存图片</div>
 
-<img  id = "kedaya" src="@ViewBag.photo.Photo_Src"  width="200" height="200">
+    <div class="评论块" style="background-color:#0094ff">
+         @if ((ViewBag.comment_list != null) && (ViewBag.comment_list.Count != 0))
+         {
+             foreach (Comment c in ViewBag.comment_list)
+             {
+                 if (@c.Reply_Id==0)
+                 {
+                     <div class="Comment">
+                         <span class="hid_uid" style="display:none"> @c.Comment_User_Id</span>
+                         <span class="hid_uname" style="display:none">@c.Comment_Name </span>
+                         <span class="hid_rid" style="display:none">@c.Comment_Id </span>
+                         @c.Comment_Name: @c.Comment_Content </div>
+                 }
+                 else { 
+                     <div class="Comment">
+                         <span class="hid_uid" style="display:none"> @c.Comment_User_Id</span>
+                         <span class="hid_uname" style="display:none">@c.Comment_Name </span>
+                         <span class="hid_rid" style="display:none">@c.Comment_Id </span>
+                         @c.Comment_Name 回复 @c.Reply_User_Name: @c.Comment_Content  </div>
+                 }
+                 
 
-<p><strong>下面是canvas</strong> <button>下载</button></p>
-<div style="width:600px; height:450px; overflow:auto;z-index:3;position:absolute;">
-<canvas id="myCanvas" style="border:2px solid gray" >your browser does not support the canvas tag </canvas>
-</div>
+             }
+         }
+         else
+         {
+            <p>没有评论</p>
+         }
+
+    </div>
+    <div>
+        @using (Html.BeginForm("addComment", "PhotoComment", FormMethod.Post))
+         {
+             
+			   <p>
+               
+               <input type="hidden" name="reply_id" value="0" />
+               <input type="hidden" name="reply_user_name" value="相片" />
+               <input type="hidden" name="reply_user_id" value="0" />    
+               <input type="hidden" name="photo_id" value="@ViewBag.photo.Photo_Id" />
+               @Html.TextBoxFor(model => model.Comment_Content)
+			   <input type="submit" value="评论" />
+			   </p>
+		   }
+
+
+    </div>
 <script type="text/javascript">
-
-    var canvas = document.getElementById('myCanvas');
-    var ctx = canvas.getContext('2d');
-    var img = document.getElementById("kedaya");
-
-    //图片加载后  进行绘制
-    img.onload = function () {
-        ctx.drawImage(img, 0, 0);
-        //根据img标签后去 image对象
-        var image = new Image();
-        image.src = img.src;
-        var canvas = document.getElementById('myCanvas');
-        //使canvas变成图片原本大小
-        
-        
-        //保存图片
-        // 图片导出为 png 格式
-        var type = 'jpg';
-
-        //更改后缀名
-        var fixtype = function (type) {
-            type = type.toLocaleLowerCase().replace(/jpg/i, 'jpeg');
-            var r = type.match(/png|jpeg|bmp|gif/)[0];
-            return 'image/' + r;
-        }
-        //替换后缀名
-        var imgData = canvas.toDataURL("image/png").replace(fixtype(type), "image/octet-stream");
-
-        //本地保存图片
-        var saveFile = function (data, filename) {
-            var link = document.createElement('a');
-            link.href = data;
-            link.download = filename;
-
-            //模拟鼠标点击事件  进行下载
-            var event = document.createEvent('MouseEvents');
-            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-            link.dispatchEvent(event);
-           
-        }
-        var filename = new Date().toLocaleDateString() + '.' + type;
-        
-        //下载
-        // saveFile(imgData, filename);
-
-        /*
-            弹出一个新页面  显示图片
-            var imgData = canvas.toDataURL(type);
-            var w = window.open('about:blank', 'image from canvas');
-            w.document.write("<img src='" + imgData + "' alt='from canvas'/>");
-        */
-    }
     
+    var param = new Object();
+    param.image_canvas_id = "canvas";
+    param.watertext_canvas_id = "watercanvas";
+    param.cut_canvas_id = "cutcanvas";
+    param.img_id = "imgid";
+
+    function $(id) {
+        return (typeof (id) == 'string') ? document.getElementById(id) : id;
+    }
+
+    var img = document.getElementById("imgid");
+    //初始化 
+    window.onload = function () {
+        console.log("图片加载    window");
+
+        util = getImageUtil();
+        
+        util.init(param);
+        util.drawImg();
+    }
+    img.onload = function () {
+        console.log("图片加载   img");
+        util = getImageUtil();
+        util.init(param);
+        util.drawImg();
+    }
+    util = getImageUtil();
+    util.init(param);
+    util.drawImg();
+    //添加水印
+    var drawText = function () { 
+        util.drawText($('water_content').value);
+
+    }
+    //保存水印
+    var saveText = function () {  
+        util.saveText();
+    }
+    //裁剪
+    var cutImg = function () {
+        util.cutImg();
+    }
+    //裁剪保存
+    var saveCutImg = function () {
+        util.saveCutImg();
+    }
+    //滤镜效果
+    var imgFilter = function () {
+        console.log($('type').value);
+        switch ($('type').value)
+        {
+            case 'Origion': util.imgToOrigion(param); break;
+            case 'Gray': util.imgToGray(); break;
+            case 'Invert': util.imgToInvert(); break;
+            case 'Binarize': util.imgToBinarize(); break;
+            case 'Brightness': util.imgToBrightness(); break;
+            case 'xx': util.imgToBinarize(); break;
+            case 'xxx': util.imgToBinarize(); break;
+        }
+    }
 
 
+    /** 分界线 **/
+
+
+    var div_comment = document.getElementsByClassName('Comment');
+    var hiddens = document.getElementsByTagName("input");
+    
+    //当点击一条评论 将数据传递到form表单并评论框获取焦点
+    //如果点击评论 则回复好友
+    for (var i = 0; i < div_comment.length; i++) {
+        div_comment[i].mouseover = function () {
+            this.style.backgroundcolor = "#444";
+        }
+        div_comment[i].onclick = function () {
+            var infos_uid = this.childNodes[1].innerText;
+            var infos_uname = this.childNodes[3].innerText;
+            var infos_rid = this.childNodes[5].innerText;
+            //更新hidden值
+            hiddens[0].value = infos_rid;
+            hiddens[1].value = infos_uname;
+            hiddens[2].value = infos_uid
+            
+            //评论框获取焦点
+            hiddens[3].onfocus;
+            for (var k = 0; k < this.childNodes.length;k++){
+                console.log("第" + k + "次" + ":" + this.childNodes[k]);
+                console.log("内容"+this.childNodes[k].innerText);
+            }
+        }
+    }
+    //document.getElementById(a).innerHTML
 </script>
-
 </body>
+
 </html>

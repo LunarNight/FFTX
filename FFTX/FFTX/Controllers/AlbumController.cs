@@ -19,7 +19,14 @@ namespace FFTX.Controllers
             ViewBag.info = "我就试试看";
             AlbumSql asql = new AlbumSql();
             Album album = new Album();
-            album.User_Id = ((User)Session["user"]).User_Id;
+            try
+            {
+                album.User_Id = ((User)Session["user"]).User_Id;
+            }
+            catch (NullReferenceException)
+            {
+                return RedirectToAction("index", "Login");
+            }
             List<Album> list = asql.getAlbumInfo(album);
             ViewBag.list = list;
            
@@ -35,18 +42,22 @@ namespace FFTX.Controllers
             AlbumSql asql = new AlbumSql();
             string id = Request.QueryString["album_id"];
             al.Album_Id = Int32.Parse(id);
-            al.User_Id = ((User)Session["user"]).User_Id;
+            //获取相册信息
+            al = asql.getAlbumInfoById(al);
+            //验证是否是本人????
+
+            //al.User_Id = ((User)Session["user"]).User_Id;
             List<Photo> list = asql.getPhotosById(al);
             ViewBag.photo_list = list;
             ViewBag.album_id = al.Album_Id;
+            ViewBag.album_name = al.Album_Name;
             return View(); 
         }
 
         //跳转到 创建相册页面
         public ActionResult creatAlbum(Album album)
         {
-
-            return View();
+            return View(); 
         }
 
         //是否创建成功 成功返回首页  不成功的话 还没做
@@ -63,13 +74,39 @@ namespace FFTX.Controllers
         //删除相册
         public ActionResult deleteAlbum(Album album)
         {
+            //删除相册内所有图片
+
+            //删除图片的信息 (数据库)
+
+            //删除相册
+
             return View();
         }
-
+        public ActionResult changeCover()
+        {
+            Album album = new Album();
+            string imgsrc = Request.Form["imgsrc"];
+            album.Album_Cover = imgsrc;
+            int aid = Int32.Parse(Request.Form["album_id"]);
+            album.Album_Id = aid;
+            AlbumSql asl = new AlbumSql();
+            asl.changeAlbumCover(album);
+            return RedirectToAction("openAlbum", new { album_id = aid });
+        }
         //重命名相册
         public ActionResult renameAlbum(Album album)
         {
-            return View();
+            int aid = Int32.Parse(Request.Form["album_id"]);
+            album.Album_Id = aid;
+            AlbumSql asl = new AlbumSql();
+            if (asl.renameAlbum(album))
+            {
+                return RedirectToAction("openAlbum", new { album_id =aid });
+            }
+            else
+            {
+                return Content("重命名失败");
+            }
         }
 
         //功能页面跳转

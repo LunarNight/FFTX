@@ -33,7 +33,7 @@ body {
 	margin-top: 10px;
 	margin-right: 100px;
 	margin-left: 10px;
-	height: 400px;
+	
 	width: 800px;
 }
 #head #head-bg {
@@ -46,7 +46,7 @@ body {
 #head #nav span {
 	font-family: "Î¢ÈíÑÅºÚ";
 	font-size: 16px;
-	color: #666;
+	color: #000;
 	background-color: #FFF;
 	display: block;
 	width: 280px;

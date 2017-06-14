@@ -19,7 +19,23 @@ namespace FFTX.Controllers
         //添加评论
         public ActionResult addComment(Comment c)
         {
-            return View();
+            //获取用户名以及用户id
+            c.Comment_Time = DateTime.Now;
+            c.Comment_User_Id = ((User)Session["user"]).User_Id;
+            c.Comment_Name = ((User)Session["user"]).User_Name;
+            c.Photo_Id = Int32.Parse(Request.Form["photo_id"]);
+
+            //c.Reply_Id = 0为相片   否则是 Comment_id
+            c.Reply_Id = Int32.Parse(Request.Form["reply_id"]);
+            c.Reply_User_Id = Request.Form["reply_user_id"];
+            c.Reply_User_Name = Request.Form["reply_user_name"];
+            //站内信标识
+            c.Comment_Flag = 0;
+
+            CommentSql csl = new CommentSql();
+            csl.addComment(c);
+
+            return RedirectToAction("index", "Photo", new { photo_id = c.Photo_Id });
         }
         //删除评论
         public ActionResult deleteComment(Comment c)

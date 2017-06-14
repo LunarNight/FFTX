@@ -1,0 +1,171 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Home</title>
+		<link href="/Content/css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="/Content/images/fav-icon.png" />
+		<!----webfonts---->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+		<!-- Global CSS for the page and tiles -->
+  		<link rel="stylesheet" href="/Content/css/main.css">
+  		<!-- //Global CSS for the page and tiles -->
+		<!---start-click-drop-down-menu----->
+		<script src="/Content/js/jquery.min.js"></script>
+        <!----start-dropdown--->
+         <script type="text/javascript">
+             var $ = jQuery.noConflict();
+             $(function () {
+                 $('#activator').click(function () {
+                     $('#box').animate({ 'top': '0px' }, 500);
+                 });
+                 $('#boxclose').click(function () {
+                     $('#box').animate({ 'top': '-700px' }, 500);
+                 });
+             });
+             $(document).ready(function () {
+                 //Hide (Collapse) the toggle containers on load
+                 $(".toggle_container").hide();
+                 //Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
+                 $(".trigger").click(function () {
+                     $(this).toggleClass("active").next().slideToggle("slow");
+                     return false; //Prevent the browser jump to the link anchor
+                 });
+
+             });
+		</script>
+        <!----//End-dropdown--->
+		<!-- CSS Bootstrap & Custom -->
+		<link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/Content/css/animate.css">
+		<link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+		<!---//End-click-drop-down-menu----->
+	</head>
+	<body>
+		
+		<!---start-header---->
+			<div class="header">
+				<div class="wrap">
+					<div class="logo">
+						<a href="index.html"><img src="/Content/images/logo.png" title="pinbal" /></a>
+					</div>
+					<div class="nav-icon">
+						 <a href="#" class="right_bt" id="activator"><span> </span> </a>
+					</div>
+					 <div class="box" id="box">
+						 <div class="box_content">        					                         
+							<div class="box_content_center">
+								<div class="form_content">
+									<div class="menu_box_list">
+										<ul>
+											<li><a href="#"><span>主页</span></a></li>
+											<li><a href="#"><span>相册</span></a></li>
+											<li><a href="#"><span>留言板</span></a></li>
+											<li><a href="#"><span>个人中心</span></a></li>
+											
+											<div class="clear"> </div>
+										</ul>
+									</div>
+									<a class="boxclose" id="boxclose"> <span> </span></a>
+								</div>                                  
+							</div> 	
+						</div> 
+					</div>       	  
+					 <div class="top-searchbar">
+						<form>
+							<input type="text" /><input style="right:0px;" type="submit" value="" />
+						</form>
+					</div>
+					<div class="userinfo">
+						<div class="user">
+							<ul>
+								<li><a href="#"><img style="width:50px" src="@(((User)Session["user"]).User_HeadImg)" title="user-name" /><span>@(((User)Session["user"]).User_Name)</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="clear"> </div>
+			</div>
+		</div>
+		<!---//End-header---->
+		
+		<!--  让相册显示出来  占空位-->
+		<div class="site-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 responsive-menu">
+						<a href="#" class="menu-toggle-btn">
+				            <i class="fa fa-bars"></i>
+				        </a>
+					</div> <!-- /.col-md-12 -->
+					<div class="col-md-12 main_menu">
+						<ul>
+							<li><a class="show-1 templatemo_home" href="#" >`</a></li>
+							<li><a class="show-2 templatemo_page2" href="#">`</a></li>
+							<li><a class="show-3 templatemo_page3" href="#">`</a></li>
+							<li><a class="show-4 templatemo_page4" href="#">About Us</a></li>
+						</ul>
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> 
+		</div>
+		<!---start-content---->
+		<div id="menu-container">
+			<div class="content homepage" id="menu-1">
+				<div class="container-fluid">
+                    <!--  在下面添加相片信息-->
+                    <div class="row">
+                        @if ((ViewBag.photo_list != null) && (ViewBag.photo_list.Count != 0))
+                        {
+                            foreach (Photo p in ViewBag.photo_list)
+                            { 
+						            <div class="col-md-2 col-sm-6">
+							            <div class="gallery-item">
+                                                <a href="/Photo/Index?photo_id=@p.Photo_Id"> <img src="@p.Photo_Src" alt="image 1"></a>
+									            <div class="overlay">
+										            <a href="@p.Photo_Src" data-rel="lightbox" class="fa fa-expand"></a>
+									            </div>
+								            <div class="content-gallery">
+									            <h3>@p.Photo_Name</h3>
+								            </div>
+							            </div> <!-- /.gallery-item -->
+						            </div> <!-- /.col-md-2 -->            
+                                
+                            }
+                        }
+                     </div> <!-- /.row -->
+				</div> <!-- /.slide-item -->
+			</div> <!-- /.homepage -->
+			<div class="copyrights">Collect from <a href="#" >Website Template</a></div>
+
+
+		</div> <!-- /#menu-container -->
+	
+		<!---//End-content---->
+
+		<!----start-footer--->
+		<div class="footer">
+			<p>FOOTER !</p>
+		</div>
+		<!----//End-footer--->
+		<!---//End-wrap---->
+		
+		
+		<!-- Scripts -->
+		<script src="/Content/js/jquery-1.10.2.min.js"></script>
+		<script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="/Content/js/modernizr.js"></script>
+		<script src="/Content/js/bootstrap.js"></script>
+		<script src="/Content/js/tabs.js"></script>
+		<script src="/Content/js/jquery.lightbox.js"></script>
+		<script src="/Content/js/templatemo_custom.js"></script>
+		
+	</body>
+</html>

@@ -3,23 +3,39 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
 
+
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+	<meta charset="UTF-8">
+	<title>管理员登录</title>
+	<meta name="keywords" content="#">
+	<meta name="content" content="#">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="/Content/login.css">
 </head>
-<body>
-    管理员登录页面!
-    @using (Html.BeginForm("confirmLogin", "Admin", FormMethod.Post))
-       {
-           <p>帐号:@Html.TextBoxFor(model => model.Admin_Id)
-               密码:@Html.PasswordFor(model=>model.Admin_Password)
-           <input type="submit" value="登录" />
-           </p>
-       }
-    <div>
+<body class="login_bj" >
+<div class="zhuce_body">
+	<div class="logo"><a href="#"><img src="/Content/img/logo.png" width="300" height="126" border="0"></a></div>
+    <div class="zhuce_kong login_kuang">
+    	<div class="zc">
+        	<div class="bj_bai" style="width:300px;margin-left:70px">
+            <h3>管理员登录</h3>
+			@using (Html.BeginForm("confirmLogin", "Admin", FormMethod.Post))
+		   {
+			   <p>@Html.TextBoxFor(model => model.Admin_Id,new {@class="kuang_txt",placeholder="管理员帐号"})
+				  @Html.PasswordFor(model=>model.Admin_Password,new {@class="kuang_txt",placeholder="密码"})
+			   <input type="submit" value="登录" class="btn_zhuce"/>
+			   </p>
+		   }
+   
+            </div>
+        	
+        </div>
         
     </div>
+</div>
 </body>
 </html>

@@ -47,8 +47,18 @@ namespace FFTX.ModelsSql
             
             string sql = string.Format("delete from FFTX_Photo where photo_id = {0}",p.Photo_Id );
             int result = SqlDB.ExecuteNonQuery(sql);
-            if (result == 1)
+            if (result == 1){
+                string sql1 = string.Format("delete from FFTX_Photo_Comment where photo_id = {0}",p.Photo_Id );
+                string sql2 = string.Format("delete from FFTX_Photo_Like where photo_id = {0}", p.Photo_Id);
+                string sql3 = string.Format("delete from FFTX_Photo_Share where photo_id = {0}", p.Photo_Id);
+                SqlDB.ExecuteNonQuery(sql1);
+                SqlDB.ExecuteNonQuery(sql2);
+                SqlDB.ExecuteNonQuery(sql3);
+
+
                 return true;
+            }
+                
             else
                 return false;
            
@@ -56,13 +66,12 @@ namespace FFTX.ModelsSql
         //重命名
         public bool renamePhoto(Photo p)
         {
-            string sql = string.Format("upload FFTX_Photo set photo_src = '{0}' where photo_id = {1}",p.Photo_Src,p.Photo_Id);
+            string sql = string.Format("Update FFTX_Photo set photo_src = '{0}' where photo_id = {1}", p.Photo_Src, p.Photo_Id);
             int result = SqlDB.ExecuteNonQuery(sql);
             if (result == 1)
                 return true;
             else
                 return false;
-            return true;
         }
         //点赞
         public bool likePhoto(int photo_id,string user_id,string user_name)

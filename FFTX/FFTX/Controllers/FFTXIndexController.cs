@@ -62,7 +62,7 @@ namespace FFTX.Controllers
         }
         public ActionResult Board()
         {
-            return RedirectToAction("index", "Board");
+            return RedirectToAction("index", "BoardMessage");
         }
         
         public ActionResult Manage()

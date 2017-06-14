@@ -1,48 +1,167 @@
 ﻿@{
     Layout = null;
 }
-
-<!DOCTYPE html>
 @model FFTX.Models.User
-<html>
+@using FFTX.Models
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+
+	<title>Concept HTML5 responsive template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+
+
 </head>
 <body>
-    <div id="head">管理中心页面 
-        <div id="head-bg">
-            <img src="" />
-            <div id="head-name">用户名: @ViewBag.User_Name </div>
-        </div>
-        <div id="nav">
-            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Album")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Index")</span>
-        </div>
-    </div>
-    <div id="menu">
-        <div id="gz">个人信息修改 </div>
+	
 
-       @using (Html.BeginForm("changeInfo", "Manage", FormMethod.Post))
-       {
-           <p>用户昵称:@Html.TextBoxFor(model => model.User_Name, new { @Value= @ViewBag.user.User_Name,style="width:75px;" })<br />
-              email: @Html.TextBoxFor(model => model.User_Email, new { @Value= @ViewBag.user.User_Email,style="width:75px;" })<br />
-               性别: @Html.TextBoxFor(model => model.User_Sex, new { @Value= @ViewBag.user.User_Sex,style="width:75px;" })<br />
-               电话: @Html.TextBoxFor(model => model.User_Phone, new { @Value= @ViewBag.user.User_Phone,style="width:75px;" })<br />
-               <input type="submit" value="修改" />
-           </p>
-       }
+	<div class="site-header">
+		<div class="main-navigation">
 
-    </div>
-    <div id="content">
-        <div id="dt">密码修改</div>
-        @using (Html.BeginForm("changePassword", "Manage", FormMethod.Post))
-       {
-           <p>原密码:@Html.PasswordFor(model=>model.User_Password)<br />
-              新密码: @Html.PasswordFor(model=>model.Password_Answer)<br />
+			<div class="responsive_menu">
+				<ul>
+					<li><a class="show-1 templatemo_home" href="#">Gallery</a></li>
+					<li><a class="show-2 templatemo_page2" href="#">Products</a></li>
+					<li><a class="show-3 templatemo_page3" href="#">Services</a></li>
+					<li><a class="show-4 templatemo_page4" href="#">About Us</a></li>
+					<li><a class="show-5 templatemo_page5" href="#">Contact Us</a></li>
+				</ul>
+			</div>
 
-              <input type="submit" value="修改" />
-           </p>
-       }
-    </div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 responsive-menu">
+						<a href="#" class="menu-toggle-btn">
+				            <i class="fa fa-bars"></i>
+				        </a>
+					</div> <!-- /.col-md-12 -->
+					<div class="col-md-12 main_menu">
+					
+						<ul style="display:inline">
+							<li><a href="#">主页</a></li>
+							<li><a href="#">好友</a></li>
+							<li><a href="#">相册</a></li>
+							<li><a href="#">留言板</a></li>
+							<li><a class="templatemo_home" href="#">个人中心</a></li>
+						</ul>
+						<ul class="pull-right"style="display:inline">
+							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
+						</ul>
+						
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> 
+            <a class="navigation-bg" href="#" title=""  target="_blank"><img src="images/header.png" alt=""  /></a><!-- /.container -->
+		</div> <!-- /.main-navigation -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="templatemo_logo" href="#" >
+						<h1>个人中心</h1>
+					</a> <!-- /.logo -->
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.site-header -->
+	
+	<hr />
+	<div class="container" >
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2" style="border:1px #e1dfe1 solid;background-color:#fffeff"> 
+				<div class = "row">
+					
+					<div class="col-md-3" style=""><!--左侧头像-->
+						<div class="row" style="margin-top:20px;margin-bottom:20px">
+							<div class="col-md-12 text-center">
+								<img style="width:80%"src="@(((User)Session["user"]).User_HeadImg)" /><!--用户头像 -->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center"><a href="#">修改头像(待实现)</a></div>
+						</div>
+					</div>
+					<div class="col-md-9" style="border-left:1px #e1dfe1 solid;"><!--用户基本信息-->
+						<div class="row" style="color:#000">
+							<div class="col-md-8" style="font-size:20px;margin-top:10px">基本资料</div>
+							<div class="col-md-2" style="margin-top:10px"><a href="#" class="text-info">修改信息(待实现)</a></div>
+							<div class="col-md-2" style="margin-top:10px"><a href="#" class="text-info">修改密码(待实现)</a></div>
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-md-3">
+								用户名:
+							</div>
+							<div class="col-md-8">
+								@(((User)Session["user"]).User_Name)
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								性别:
+							</div>
+							<div class="col-md-8">
+								@(((User)Session["user"]).User_Sex)
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-3">
+								邮箱:
+							</div>
+							<div class="col-md-8">
+								@(((User)Session["user"]).User_Email)
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-3">
+								联系电话:
+							</div>
+							<div class="col-md-8">
+								@(((User)Session["user"]).User_Phone)
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	
+	</div>
+	
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p></p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/modernizr.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+	<script src="/Content/js/tabs.js"></script>
+	<script src="/Content/js/jquery.lightbox.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
+
 </body>
 </html>

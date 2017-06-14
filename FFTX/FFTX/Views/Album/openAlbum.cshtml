@@ -2,153 +2,366 @@
     Layout = null;
 }
 @using FFTX.Models
+@model FFTX.Models.Album
 <!DOCTYPE html>
-
-<html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
-     <style type="text/css">
-.album{
-	float:left;
-    background-color:#efefef;
-    width:100px;
-    height:130px;
-	margin:3px 8px;
-}
-.album img{
-	width:90%;
-	height:70%;
-	margin:5px;
-	
-}
-.album .album_name{
-	width:100%;
-	height:15%;
-	background-color:#0f0;
-}
-.album .items{
-	margin-top:-120px;
-	margin-left:60px;
-	
-}
-.button {
-	display: none;
-	outline: none;
-	text-align: center;
-	text-decoration: none;
-	font: 14px/100% Helvetica, sans-serif;
-	-webkit-border-radius: .5em; 
-	-moz-border-radius: .5em;
-	border-radius: .5em;
-	background-color: #efefef;
-}
-.button:hover {
-	text-decoration: none;
-}
-.button:active {
-	position: relative;
-	top: 1px;
-}
 
-.items .one_item{
-	background-color:#efefef;
-	z-index:9;
-	width:60px;
-	height:20px;
-	margin-left:-30px;
-}
-.items .item_show{
-	display:none;
-}
-.confirmDelete{
-	display:none;
-	position:absolute;
-	top:400px;
-    right:500px;
-    width:300px;
-    height:150px;
-    background-color:#efefef;
-    text-align:center;
-}
-</style>
+	<title>Concept HTML5 responsive template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+
+
 </head>
 <body>
-    <div id="head">我的相册页面 获取viewbag:@ViewBag.info
-        <div id="head-bg">
-            <img src="" />
-            <div id="head-name">用户名: @ViewBag.User_Name </div>
-        </div>
-        <div id="nav">
-            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Index")</span><span>@Html.ActionLink("留言板", "Board")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
-        </div>
-    </div>
+	
+
+	<div class="site-header">
+		<div class="main-navigation">
+
+			<div class="responsive_menu">
+				<ul>
+					<li><a class="show-1 templatemo_home" href="#">Gallery</a></li>
+					<li><a class="show-2 templatemo_page2" href="#">Products</a></li>
+					<li><a class="show-3 templatemo_page3" href="#">Services</a></li>
+					<li><a class="show-4 templatemo_page4" href="#">About Us</a></li>
+					<li><a class="show-5 templatemo_page5" href="#">Contact Us</a></li>
+				</ul>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 responsive-menu">
+						<a href="#" class="menu-toggle-btn">
+				            <i class="fa fa-bars"></i>
+				        </a>
+					</div> <!-- /.col-md-12 -->
+					<div class="col-md-12 main_menu">
+						<ul style="display:inline">
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a href="/FFTXIndex">好友</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Album">相册</a></li>
+							<li><a href="/FFTXIndex/Board">留言板</a></li>
+							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
+						</ul>
+						<ul class="pull-right"style="display:inline">
+							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
+						</ul>
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> <!-- /.container -->
+		</div> <!-- /.main-navigation -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="templatemo_logo" href="#" >
+						<h1>相册:@ViewBag.album_name</h1>
+					</a> <!-- /.logo -->
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.site-header -->
+	
+	<div id="menu-container">
+
+		<div class="content homepage" id="menu-1">
+			<div class="container-fluid">
+                <!-- 功能按钮(模态框) -->
+                <div class="row">
+					<div class="cow-md-2 col-md-offset-1" style="margin-bottom:10px">
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#uploadImg">
+							上传照片
+						</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#renameAlbum">
+							重命名相册
+						</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#changeCover">
+							设置封面
+						</button>
+                        <a class="btn btn-primary btn-lg" href="/FFTXIndex/Album">返回</a>
+					</div>
+				</div>
+                <!-- 显示相册内的照片 -->
+				<div class="row">
+                    @if ((ViewBag.photo_list != null) && (ViewBag.photo_list.Count != 0))
+                    {
+                        int k = 0;
+                        foreach (Photo p in ViewBag.photo_list)
+                        {
+                            if (k % 5 == 0)
+                            {
+                                <div class="col-md-2 col-sm-6 col-md-offset-1">
+							        <div class="gallery-item" style="height:200px;overflow:hidden">
+                                        <div style="height:150px;overflow:hidden"><img src="@p.Photo_Src" alt="image 1"></div>
+									    <div class="overlay">
+                                            <a href="#" data-toggle="modal" onclick="getPhotoId(@p.Photo_Id,'delete_img_id')"  data-target="#deleteImg" style="margin-top:-15px;margin-left:19px">删除</a>
+										    <a href="@p.Photo_Src" data-rel="lightbox" class="fa fa-expand"></a> 
+                                            <a href="/Photo/dealPhoto?photo_id=@p.Photo_Id" data-target="#dealImg"  data-toggle="modal" style="margin-top:-51px;margin-left:-16px">处理</a>
+                                            <a href="@p.Photo_Src" style="margin-top:19px;margin-left:-16px">评论</a>
+                                            <a href="#" data-toggle="modal" onclick="getPhotoId(@p.Photo_Id,'rename_img_id')"  data-target="#renameImg" style="margin-left:-51px">命名</a>
+                                        </div>
+								        <div class="content-gallery">
+									        <h3>@p.Photo_Name</h3>
+								        </div>
+							        </div> <!-- /.gallery-item -->
+						        </div> <!-- /.col-md-2 -->    
+                                k++;
+                            }
+                            else
+                            {
+                                <div class="col-md-2 col-sm-6">
+							        <div class="gallery-item" style="height:200px;overflow:hidden">
+                                        <div style="height:150px;overflow:hidden"><img src="@p.Photo_Src" alt="image 1"></div>
+									    <div class="overlay">
+                                            <a href="#" data-toggle="modal" onclick="getPhotoId(@p.Photo_Id,'delete_img_id')"  data-target="#deleteImg" style="margin-top:-15px;margin-left:19px">删除</a>
+										    <a href="@p.Photo_Src" data-rel="lightbox" class="fa fa-expand"></a> 
+                                            <a href="/Photo/dealPhoto?photo_id=@p.Photo_Id" data-target="#dealImg"  data-toggle="modal" style="margin-top:-51px;margin-left:-16px">处理</a>
+                                            <a href="@p.Photo_Src" style="margin-top:19px;margin-left:-16px">评论</a>
+                                            <a href="#" data-toggle="modal" onclick="getPhotoId(@p.Photo_Id,'rename_img_id')"  data-target="#renameImg"style="margin-left:-51px">命名</a>
+                                        </div>
+								        <div class="content-gallery">
+									        <h3>@p.Photo_Name</h3>
+								        </div>
+							        </div> <!-- /.gallery-item -->
+						        </div> <!-- /.col-md-2 -->    
+                                k++;
+                            }                    
+                        }
+                    }
+				</div> <!-- /.row -->
+			</div> <!-- /.slide-item -->
+		</div> <!-- /.homepage -->
+
+		<div class="copyrights">Collect from <a href="#" >Website Template</a></div>
+	</div> <!-- /#menu-container -->
     
-    <div id="content" style="border:#4cff00 solid">
-        <div id="dt">@Html.ActionLink("返回", "Index")</div>
-        <div id="detail">
-            <div><span>上传照片</span> <span>删除照片</span></div>
-            @if ((ViewBag.photo_list != null) && (ViewBag.photo_list.Count != 0))
-            {
-                foreach (Photo p in ViewBag.photo_list)
-                { 
-                  
-                    <div class="album">
-	                    <a href="/Photo/Index?photo_id=@p.Photo_Id"> <img src="@p.Photo_Src" /></a>
-	                    <div class="album_name">相片名</div>
-	                    <div class="items">
-		                    <button class="button">≡</button>
-		                    <div class="item_show">
-			                    <button class="one_item delete" value="@p.Photo_Id">删除</button>
-			                    <button class="one_item rename" value="@p.Photo_Id">重命名</button>
-		                    </div>
-	                    </div>
-                    </div>
-                }
-            }
-            <div class="confirmDelete">
-                确认删除<br/><br/><br/>
-                <span><a id = "delete_a"href="/Photo/deletePhoto?album_id=@ViewBag.album_id&photo_id=">确定</a></span> &nbsp&nbsp&nbsp&nbsp
-                &nbsp&nbsp<span id = 'cancel'>取消</span>
-            </div>
-        </div>
-    </div>
+    <!-- 上传照片模态框 -->
+    <div class="modal fade" id="uploadImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						上传相片
+					</h4>
+				</div>
+				<div class="modal-body">
+					@using (Html.BeginForm("uploadPhoto", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="file" name="file" id="fileInput"/> //onchange="fileChange(this)" 也可以及时校验
+                        <input type="hidden" name="album_id"value="@ViewBag.album_id" />
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="上传"/>
+                            
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					        </button>
+				        </div>
+                    }
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
 
+    <!-- 相册重命名模态框 -->
+    <div class="modal fade" id="renameAlbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title">
+						重命名相册
+					</h4>
+				</div>
+				<div class="modal-body">
+					 @using (Html.BeginForm("renameAlbum", "Album", FormMethod.Post))
+                       {
+                           <p>相册名称:@Html.TextBoxFor(model => model.Album_Name)<br />
+                              <input type="hidden" name="album_id" value="@ViewBag.album_id" /> 
+                           </p>
+                        <div class="modal-footer">
+					        
+                            <input type="submit" class="btn btn-primary" value="确定"/>
+                            
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					        </button>
+				        </div>
+                        }
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+
+    <!-- 相册设置封面模态框 -->
+    <div class="modal fade" id="changeCover" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title">
+						设置封面
+					</h4>
+				</div>
+				<div class="modal-body">
+					 @using (Html.BeginForm("changeCover", "Album", FormMethod.Post))
+                       {
+                           <p>
+                              <input type="hidden" name="album_id" value="@ViewBag.album_id" /> 
+                           </p>
+                            if ((ViewBag.photo_list != null) && (ViewBag.photo_list.Count != 0))
+                            {
+                                foreach (Photo p in ViewBag.photo_list)
+                                {
+                                    <div class="col-md-4 col-sm-6">
+							            <div class="gallery-item text-center" style="height:120px;overflow:hidden">
+                                            <div style="height:80px;overflow:hidden"><img src="@p.Photo_Src" alt="image 1"></div>
+                                            <input type="radio" name="imgsrc" value="@p.Photo_Src" checked>选择
+							            </div> <!-- /.gallery-item -->
+						            </div> <!-- /.col-md-2 -->                                            
+                                }
+                            }
+                            
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-primary" value="确定"/>
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					                </button>
+				                </div>
+                            
+                            
+                        }
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+
+    <!-- 重命名照片模态框 -->
+    <div class="modal fade" id="renameImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						重命名
+					</h4>
+				</div>
+				<div class="modal-body">
+                     @using (Html.BeginForm("renamePhoto", "Photo", FormMethod.Post))
+                     {
+			            <p>
+                            输入新的照片名:<input type="text" name="rename_img" />
+                            <input type="hidden" name="album_id" value="@ViewBag.album_id" /> 
+                            <input type="hidden" name="rename_img_id" id="rename_img_id"/>
+			            </p>
+                         <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="确定"/>
+                            
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					        </button>
+				        </div>
+		            }
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+
+    <!-- 删除照片模态框 -->
+    <div class="modal fade" id="deleteImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						删除照片
+					</h4>
+				</div>
+				<div class="modal-body">
+                     @using (Html.BeginForm("deletePhoto", "Photo", FormMethod.Post))
+                     {
+			            <p>
+                            确定要删除此照片?
+                            <input type="hidden" name="album_id" value="@ViewBag.album_id" /> 
+                            <input type="hidden" name="delete_img_id" id="delete_img_id"/>
+			            </p>
+                         <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="确定"/>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					        </button>
+				        </div>
+		            }
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+    <!-- 处理照片模态框 -->
+    <div class="modal fade" id="dealImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width:1000px;height:700px;overflow:scroll">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						处理照片
+					</h4>
+				</div>
+				<div class="modal-body">
+                   
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>安德森</p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/modernizr.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+	<script src="/Content/js/tabs.js"></script>
+	<script src="/Content/js/jquery.lightbox.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
     <script type="text/javascript">
-
-    //为图片添加Over事件
-    var albums = document.getElementsByClassName('album');
-    for (var i = 0; i < albums.length; i++) {
-        albums[i].onmouseover = function showButton() {
-            //鼠标移动在照片上  显示删除和重命名按钮
-            this.childNodes[5].childNodes[3].style.display = 'inline-block';
+        function getPhotoId(imgid, hid) {
+            console.log(hid);
+            document.getElementById(hid).value = imgid;
+            console.log(document.getElementById(hid).value);
         }
-
-        albums[i].onmouseout = function hiddenButton() {
-            console.log('隐藏 菜单');
-
-            this.childNodes[5].childNodes[3].style.display = 'none';
-        }
-    }
-    //删除按钮
-    var deletes = document.getElementsByClassName('delete');
-    var delete_a = document.getElementById('delete_a');
-    var delete_div = document.getElementsByClassName('confirmDelete');
-    for (var i = 0; i < deletes.length; i++) {
-        console.log(deletes[i].value);
-        //点击删除  将photo id 传入a标签  并显示确定与取消
-        deletes[i].onclick = function () {
-            console.log("此删除按钮所对id:" + this.value);
-            delete_div[0].style.display = 'inline-block';
-            delete_a.href = delete_a.href + this.value;
-        }
-    }
-    //取消按钮
-    var cancel_ = document.getElementById('cancel');
-    cancel_.onclick = function () {
-        delete_div[0].style.display = 'none';
-    }
-    //重命名按钮
-</script>
+    </script>
 </body>
 </html>

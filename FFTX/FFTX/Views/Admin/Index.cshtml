@@ -7,10 +7,13 @@
 
 <html>
 <head>
-    <title>Index</title>
+    <title>管理员主页</title>
+    <style type="text/css">
+        
+    </style>
 </head>
 <body>
-    这是管理员的主页!!!是否登录??  @ViewBag.se  管理员姓名:@ViewBag.name 
+    管理员:@ViewBag.name 
     <div style="background-color:#0094ff;height:200px">
          @using (Html.BeginForm("blockUser", "Admin", FormMethod.Post))
         {
@@ -20,6 +23,7 @@
            </p>
         }
     </div>
+
     <div style ="background-color:#808080;height:200px">
         @ViewBag.listinfo<br />
         <div>

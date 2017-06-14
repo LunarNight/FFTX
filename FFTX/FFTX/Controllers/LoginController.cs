@@ -105,7 +105,9 @@ namespace FFTX.Controllers
                 ViewBag.Msg = "有文件";
                 //根据用户名创建文件夹保存照片
                 string user_id = "阿呆";
-                string path = Request.MapPath("~/UserPhoto/" + user_id);
+                string path = Request.MapPath("~/Content/photo" + user_id);
+                //在photo表中　添加数据　　路径为　(../../Content/photo/user_id/filename)
+
 
                 if (Directory.Exists(path) == false)//如果不存在就创建file文件夹
                 {
