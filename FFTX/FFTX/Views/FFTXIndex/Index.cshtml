@@ -70,13 +70,14 @@
 					
 						<ul style="display:inline">
 							<li><a class="templatemo_home" href="/FFTXIndex">广场</a></li>
-							<li><a href="/FFTXIndex">好友</a></li>
+							<li><a href="/FFTXIndex/Friend">好友</a></li>
 							<li><a href="/FFTXIndex/Album">相册</a></li>
 							<li><a href="/FFTXIndex/Board">留言板</a></li>
 							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
 						</ul>
 						
-					</div> <!-- /.col-md-12 -->
+					
+                        </div> <!-- /.col-md-12 -->
 				</div> <!-- /.row -->
 			</div> 
            <!-- /.container -->
@@ -86,10 +87,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
+                    @if (@ViewBag.mail.Comment_Num != 0 || @ViewBag.mail.Like_Num != 0 || @ViewBag.mail.Share_Num != 0)
+                        {
+                          <a href="/Mail">有新消息</a>
+                        }else{
+                            <div>没有消息</div>
+                        }
 					<form class="navbar-form" method="post">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="搜索照片">
 						</div>
+                        
 						<button type="submit" class="btn btn-default">搜索</button>
 					</form>
 				</div> <!-- /.col-md-12 -->
@@ -117,28 +125,59 @@
 	<!-- 分享框-->
 	<div class="container">
 		<div class="row">
+            <!-- 排行榜 -->
 			<div class="col-md-3">
 				<p class = "text-center"style="font-size:23px;color:#000">排行榜</p>
 				<div class="row" style="margin-top:20px">
-					<div class="col-md-6 col-md-offset-1"><img class="" style="width:100%" src="1.png"/></div>
-					<!--照片相关信息-->
-					<div class="col-md-5">
-						<div class="row">用户：xxx</div>
-						<div class="row" style="font-size:20px;color:red;">❤</div>
-					</div>
-				</div>
-			</div>
+                    @if ((ViewBag.rankList != null) && (ViewBag.rankList.Count != 0))
+                    {
+                        foreach (Photo p in ViewBag.rankList)
+                        {   <div class="row" style="margin-top:5px">
+                                <div class="col-md-6 col-md-offset-1">
+                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal">
+                                        <img class="" style="width:100%" src="@p.Photo_Src"/>
+                                    </a>
+                                </div>
+                                <div class="col-md-5">
+						            <div class="row">点赞总数: @p.Photo_Like</div>
+						            <div class="row" style="font-size:20px;color:#fa2525;">❤</div>
+					            </div>
+                            </div>
+                        }
+                    }
+			    </div>
+                <p class = "text-center"style="font-size:23px;color:#000">推荐图片</p>
+                <div class="row" style="margin-top:20px">
+                    @if ((ViewBag.recommandList != null) && (ViewBag.recommandList.Count != 0))
+                    {
+                        foreach (Photo p in ViewBag.recommandList)
+                        {   <div class="row" style="margin-top:5px">
+                                <div class="col-md-6 col-md-offset-1">
+                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal">
+                                        <img class="" style="width:100%" src="@p.Photo_Src"/>
+                                    </a>
+                                </div>
+                                <div class="col-md-5">
+						            <div class="row">点赞总数: @p.Photo_Like</div>
+						            <div class="row" style="font-size:20px;color:#fa2525;">❤</div>
+					            </div>
+                            </div>
+                        }
+                    }
+			    </div>
+            <!-- 分享框 -->
+            </div>
 			<div class="col-md-8 col-md-push-1">
 				<div class="row" ><p style="font-size:23px;color:#000">分享广场</p></div>
-				
+		
 					<div class="row share_padding" style="background-color:#fafafa;border:#000">
 						<div class="row" id="用户信息">
-							<div class="col-sm-2"><img class="img-circle img-thumbnail" src="1.png"/></div><!--用户头像 -->
+							<div class="col-sm-2"><img class="img-circle img-thumbnail" src="/Content/dian.jpg"/></div><!--用户头像 -->
 							<div class="col-sm-3 margin_top"><span class="text-primary" style="font-size: 17px;">阿呆</span></div>
 						</div>
 						<hr />
 						<div class="row" id="分享图片">
-							<div class="col-sm-5 col-sm-push-1"><img style="width:100%"src="1.png"/></div><!--用户分享照片 -->
+							<div class="col-sm-5 col-sm-push-1"><img style="width:100%"src="/Content/1.jpg"/></div><!--用户分享照片 -->
 							<div class="col-sm-4 col-sm-push-2 margin_top" style="font-size:16px; border:solid #ccc;border-width:thin">分享了一个可达鸭的照片</div>
 						</div>
 						<hr />
@@ -163,6 +202,26 @@
 		</div>
 
 	</div> <!-- /#menu-container -->
+
+    <!-- 评论照片模态框 -->
+    <div class="modal fade" id="commentImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="height:700px;overflow:scroll">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						评论照片
+					</h4>
+				</div>
+				<div class="modal-body">
+                   
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
 
 	<div id="templatemo_footer">
 		<div class="container">

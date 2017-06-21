@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using FFTX.Models;
 using FFTX.ModelsSql;
-using System.IO;
+
 
 namespace FFTX.Controllers
 {
@@ -41,6 +41,8 @@ namespace FFTX.Controllers
         {
             //相册id
             int aid = Int32.Parse(Request.Form["album_id"]);
+            int label = Int32.Parse(Request.Form["imgLabel"]);
+
             if (file == null)
             {
                 return RedirectToAction("openAlbum", "Album", new { album_id = aid });
@@ -69,13 +71,12 @@ namespace FFTX.Controllers
                 Photo p = new Photo();
                 p.Photo_Src = "/Content/photo/" + user_id + "/" + time + "(" + file.FileName;
                 p.Photo_Time = DateTime.Now;
-                p.Photo_Label = 1;//照片标签选取
+                p.Photo_Label = label;//照片标签选取
                 p.album_id = aid; //照片所在相册
-                
                 ps.uploadPhoto(p);
-                return RedirectToAction("openAlbum", "Album", new { album_id = aid });
+
+                return RedirectToAction("openAlbum", "Album", new { album_id = aid,page=1});
             }
-           
            
         }
         //重命名
@@ -114,7 +115,7 @@ namespace FFTX.Controllers
             ps.renamePhoto(p);;
             bool r = true;
             if (r)
-                return RedirectToAction("openAlbum", "Album" ,new { album_id = aid });
+                return RedirectToAction("openAlbum", "Album", new { album_id = aid, page = 1 });
             else
                 return Content("删除失败");
         }
@@ -140,9 +141,9 @@ namespace FFTX.Controllers
                 {
                     file.Delete();
                 }
-                
 
-                return RedirectToAction("openAlbum", "Album", new { album_id = aid });
+
+                return RedirectToAction("openAlbum", "Album", new { album_id = aid, page = 1 });
             }
                 
             else
@@ -165,7 +166,7 @@ namespace FFTX.Controllers
             //修改图片文件
             return View();
         }
-        // ajax实现
+        // ajax实现 保存图片
         public ActionResult saveDealPhoto(string imgData, string id)
         {
 
@@ -186,6 +187,32 @@ namespace FFTX.Controllers
             }
 
             return Content("修改成功,请清除缓存或重命名");
+        }
+        //评论照片
+        public ActionResult commentPhoto()
+        {
+            Photo p = new Photo();
+            string id = Request.QueryString["photo_id"];
+            if (id != null)
+                p.Photo_Id = Int32.Parse(id);
+            PhotoSql ps = new PhotoSql();
+            //根据 PHOTO ID 获取信息
+            ps.getPhotoInfo(p);
+            ViewBag.photo = p;
+            ViewBag.user = (User)Session["user"];
+
+            //获取上传此照片用户的信息
+            User p_own = ps.getUserByPhoto(p);
+            ViewBag.p_own = p_own;
+            p.Photo_Src.Equals("");
+            //获取此照片所有评论
+            CommentSql csl = new CommentSql();
+            Comment c = new Comment();
+            List<Comment> comment_list = csl.getComments(p.Photo_Id);
+            ViewBag.comment_list = comment_list;
+            
+
+            return View();
         }
 
     }

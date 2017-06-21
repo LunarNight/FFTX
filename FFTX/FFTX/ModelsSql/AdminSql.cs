@@ -87,7 +87,22 @@ namespace FFTX.ModelsSql
         public bool operateRequest(){
             return true;
         }
-        
+        public AdminOperate getAdminOperateByuid(User u)
+        {
+            AdminOperate ao = new AdminOperate();
+            string sql = string.Format("select top 1  * from FFTX_Admin_Operate where user_id = {0} order by operate_id", u.User_Id);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            if (sqldr != null && sqldr.HasRows)
+            {
+                sqldr.Read();
+                ao.Admin_Id = sqldr.GetValue(1)+"";
+                ao.User_Id = sqldr.GetValue(2) + "";
+                ao.Operate_Time = sqldr.GetDateTime(3);
+                ao.Operate_Reason = sqldr.GetValue(4) + "";
+                return ao;
+            }
+            return null;
+        }
         
     }
 }

@@ -64,6 +64,47 @@ namespace FFTX.ModelsSql
             }
             return null;
         }
+        public List<Comment> getMailComments(string uid)
+        {
+            string sql = string.Format("select * from FFTX_Photo_Comment where reply_user_id = {0} and comment_look_flag=0", uid);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
 
+            if (sqldr != null && sqldr.HasRows)
+            {
+
+                List<Comment> list = new List<Comment>();
+                //获取user request
+                while (sqldr.Read())
+                {
+                    Comment c = new Comment();
+                    c.Comment_Id = sqldr.GetInt32(0);
+                    c.Comment_User_Id = sqldr.GetValue(1) + "";
+                    c.Comment_Name = sqldr.GetValue(2) + "";
+                    c.Photo_Id = sqldr.GetInt32(3);
+                    c.Comment_Content = sqldr.GetValue(4) + "";
+                    c.Reply_Id = sqldr.GetInt32(5);
+                    c.Reply_User_Id = sqldr.GetValue(6) + "";
+                    c.Reply_User_Name = sqldr.GetValue(7) + "";
+                    c.Comment_Time = sqldr.GetDateTime(8);
+                    list.Add(c);
+                }
+                return list;
+            }
+            return null;
+        }
+        public Photo getPhotoInfoByCommentId(int cid)
+        {
+            string sql = string.Format("select photo_id from FFTX_Photo_Comment where comment_id = {0}", cid);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            if (sqldr != null && sqldr.HasRows)
+            {
+                sqldr.Read();
+                Photo p = new Photo();
+                p.Photo_Id = sqldr.GetInt32(0);
+                return p;
+            }
+            return null;
+        }
+    
     }
 }

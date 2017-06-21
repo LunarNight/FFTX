@@ -147,7 +147,6 @@
       <DependentUpon>FFTX.mdf</DependentUpon>
     </Content>
     <Content Include="Content\1.jpg" />
-    <Content Include="Content\1.txt" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap.css" />
@@ -391,12 +390,18 @@
     <Content Include="Content\bootstrap-3.3.7\js\transition.js" />
     <Content Include="Content\bootstrap-3.3.7\package.js" />
     <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\morris-0.4.3.min.css" />
+    <Content Include="Content\css\sb-admin.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\templatemo_misc.css" />
     <Content Include="Content\css\templatemo_style.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\imageutil.js" />
     <Content Include="Content\images\blog-icon2.png" />
@@ -463,6 +468,13 @@
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\logo1.png" />
     <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\flot\chart-data-flot.js" />
+    <Content Include="Content\js\flot\excanvas.min.js" />
+    <Content Include="Content\js\flot\jquery.flot.js" />
+    <Content Include="Content\js\flot\jquery.flot.pie.js" />
+    <Content Include="Content\js\flot\jquery.flot.resize.js" />
+    <Content Include="Content\js\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery-1.10.2.min.js" />
     <Content Include="Content\js\jquery-migrate-1.2.1.min.js" />
     <Content Include="Content\js\jquery.imagesloaded.js" />
@@ -471,6 +483,11 @@
     <Content Include="Content\js\jquery.wookmark.js" />
     <Content Include="Content\js\logging.js" />
     <Content Include="Content\js\modernizr.js" />
+    <Content Include="Content\js\morris-0.4.3.min.js" />
+    <Content Include="Content\js\morris\chart-data-morris.js" />
+    <Content Include="Content\js\raphael-min.js" />
+    <Content Include="Content\js\tablesorter\jquery.tablesorter.js" />
+    <Content Include="Content\js\tablesorter\tables.js" />
     <Content Include="Content\js\tabs.js" />
     <Content Include="Content\js\templatemo_custom.js" />
     <Content Include="Content\login.css" />
@@ -672,6 +689,36 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -725,7 +772,7 @@
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Login\Upload.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\te.cshtml" />
     <Content Include="Views\Admin\LoginFail.cshtml" />
     <Content Include="Views\Login\IdBlocked.cshtml" />
     <Content Include="Views\Photo\Index.cshtml" />
@@ -735,6 +782,14 @@
     <Content Include="Views\Album\Index.cshtml" />
     <Content Include="Views\Album\openAlbum.cshtml" />
     <Content Include="Views\Photo\dealPhoto.cshtml" />
+    <Content Include="Views\Photo\commentPhoto.cshtml" />
+    <Content Include="Views\Friend\Index.cshtml" />
+    <Content Include="Views\Friend\albumPage.cshtml" />
+    <Content Include="Views\Friend\openAlbum.cshtml" />
+    <Content Include="Views\Mail\commentPhoto.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\blockUserPage.cshtml" />
+    <Content Include="Views\Admin\searchReason.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

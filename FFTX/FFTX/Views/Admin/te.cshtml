@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.AdminOperate
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+	<title>我的相册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+
+
+</head>
+<body>
+    
+    管理员:
+    <div style="background-color:#0094ff;height:200px">
+         @using (Html.BeginForm("blockUser", "Admin", FormMethod.Post))
+        {
+           <p>所封用户ID:@Html.TextBoxFor(model => model.User_Id)<br />
+               封号原因:@Html.TextAreaFor(model => model.Operate_Reason)
+           <input type="submit" value="确定" />
+           </p>
+        }
+    </div>
+
+    <div style ="background-color:#808080;height:200px">
+        @ViewBag.listinfo<br />
+        <div>
+            @if ((ViewBag.user_request_list != null) && (ViewBag.user_request_list.Count != 0))
+            {
+                <table>
+                    <tr><th>用户id</th><th>请求时间</th><th>操作</th></tr>
+                    @foreach (UserRequest ur in ViewBag.user_request_list)
+                    {
+                        <tr>
+                            <td>@ur.User_Id</td>
+                            <td>@ur.Request_Time</td>
+                            <td> <a href="/Admin/handleRequest?user_id=@ur.User_Id&state=0">同意</a>|<a href="/Admin/handleRequest?user_id=@ur.User_Id&state=1">拒绝</a></td>
+                        </tr>
+                     }
+                </table>
+                
+            }
+        </div>
+    </div>
+    <script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/bootstrap.js"></script>
+</body>
+</html>

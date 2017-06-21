@@ -205,5 +205,11 @@ namespace FFTX.ModelsSql
             else
                 return false;
         }
+        public int changeHeadImg(User u)
+        {
+            string sql = string.Format("Update FFTX_User set user_headimg = '{0}' where user_id = {1}", u.User_HeadImg,u.User_Id);
+            int result = SqlDB.ExecuteNonQuery(sql);
+            return result ;
+        }
     }
 }

@@ -4,46 +4,114 @@
 @using FFTX.Models
 @model FFTX.Models.AdminOperate
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<html>
-<head>
     <title>管理员主页</title>
-    <style type="text/css">
-        
-    </style>
-</head>
-<body>
-    管理员:@ViewBag.name 
-    <div style="background-color:#0094ff;height:200px">
-         @using (Html.BeginForm("blockUser", "Admin", FormMethod.Post))
-        {
-           <p>所封用户ID:@Html.TextBoxFor(model => model.User_Id)<br />
-               封号原因:@Html.TextAreaFor(model => model.Operate_Reason)
-           <input type="submit" value="确定" />
-           </p>
-        }
-    </div>
 
-    <div style ="background-color:#808080;height:200px">
-        @ViewBag.listinfo<br />
-        <div>
-            @if ((ViewBag.user_request_list != null) && (ViewBag.user_request_list.Count != 0))
-            {
-                <table>
-                    <tr><th>用户id</th><th>请求时间</th><th>操作</th></tr>
-                    @foreach (UserRequest ur in ViewBag.user_request_list)
-                    {
-                        <tr>
-                            <td>@ur.User_Id</td>
-                            <td>@ur.Request_Time</td>
-                            <td> <a href="/Admin/handleRequest?user_id=@ur.User_Id&state=0">同意</a>|<a href="/Admin/handleRequest?user_id=@ur.User_Id&state=1">拒绝</a></td>
-                        </tr>
-                     }
-                </table>
-                
-            }
-            
+    <!-- Bootstrap core CSS -->
+    <link href="/Content/css/bootstrap.css" rel="stylesheet">
+    <!-- Add custom CSS here -->
+    <link href="/Content/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/font-awesome/css/font-awesome.min.css">
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="/Content/css/morris-0.4.3.min.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">管理员主页</a>
         </div>
-    </div>
-</body>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li><a href="/Admin/Index"><i class="fa fa-bar-chart-o"></i> 查看请求</a></li>
+			<li><a href="/Admin/blockUserPage"><i class="fa fa-table"></i> 封禁用户</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown messages-dropdown">
+              <a href="#">阿呆</a>
+            </li>
+			<li class="dropdown messages-dropdown">
+              <a href="#"> </a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+      <div id="page-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> 用户请求</h3>
+              </div>
+              <div class="panel-body">
+                <div>
+                    @ViewBag.listinfo<br />
+                    <div>
+                        @if ((ViewBag.user_request_list != null) && (ViewBag.user_request_list.Count != 0))
+                        {
+                            <table class="table table-bordered text-center">
+                                <tr><th class="text-center">用户id</th><th class="text-center">请求时间</th><th colspan="3" class="text-center">操作</th></tr>
+                                @foreach (UserRequest ur in ViewBag.user_request_list)
+                                {
+                                    <tr>
+                                        <td>@ur.User_Id</td>
+                                        <td>@ur.Request_Time</td>
+                                        <td><a href="/Admin/searchReason?user_id=@ur.User_Id"  data-toggle="modal" data-target="#searchReason">查看详情</a></td>
+                                        <td><a href="/Admin/handleRequest?user_id=@ur.User_Id&state=0">同意</a></td>
+                                        <td><a href="/Admin/handleRequest?user_id=@ur.User_Id&state=1">拒绝</a></td>
+                                    </tr>
+                                 }
+                            </table>
+                
+                        }
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+       <!-- 查看详情模态框 -->
+    <div class="modal fade" id="searchReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						查看详情
+					</h4>
+				</div>
+				<div class="modal-body">
+				
+				</div>
+				
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+    <!-- JavaScript -->
+    <script src="/Content/js/jquery-1.10.2.js"></script>
+    <script src="/Content/js/bootstrap.js"></script>
+    <!-- Page Specific Plugins -->    
+  </body>
 </html>
+
+ 

@@ -30,6 +30,7 @@ namespace FFTX.Controllers
                p.User_Id = user.User_Id;
                p.Group_Name = "我的好友";
                new GroupSql().addGroupFriendInfo(p);
+               //注册成功  创建 自己的站内信
 
                return RedirectToAction("Index", "Login"); ; 
            }

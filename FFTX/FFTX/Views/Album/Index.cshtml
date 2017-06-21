@@ -103,7 +103,7 @@
                                 <div class="col-md-2 col-sm-6 col-md-offset-1">
 						            <div class="gallery-item" style="height:200px;overflow:hidden">
                                         <div style="height:150px;overflow:hidden">
-                                            <a href="/Album/openAlbum?album_id=@al.Album_Id">
+                                            <a href="/Album/openAlbum?album_id=@al.Album_Id&page=1">
                                             <img src="@al.Album_Cover" alt="image 1">
                                             </a>
                                         </div>
@@ -119,7 +119,7 @@
                                 <div class="col-md-2 col-sm-6">
 						            <div class="gallery-item" style="height:200px;overflow:hidden">
 								        <div style="height:150px;overflow:hidden">
-                                            <a href="/Album/openAlbum?album_id=@al.Album_Id">
+                                            <a href="/Album/openAlbum?album_id=@al.Album_Id&page=1">
                                             <img src="@al.Album_Cover" alt="image 1">
                                             </a>
                                         </div>	
@@ -158,7 +158,12 @@
                        {
                            <p>相册名称:@Html.TextBoxFor(model => model.Album_Name)<br />
                                相册描述:@Html.TextAreaFor(model=>model.Album_Describe)<br />
-                               相册权限:@Html.TextBoxFor(model =>model.Album_Power)<br />    
+                               相册权限:
+                               <select name="Album_Power" id="Album_Power">
+                                   <option value="0" selected>所有人可见</option>
+                                   <option value="1">个人可见</option>
+                               </select>
+                               
                            
                            </p>
                         <div class="modal-footer">

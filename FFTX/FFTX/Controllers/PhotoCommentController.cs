@@ -31,11 +31,18 @@ namespace FFTX.Controllers
             c.Reply_User_Name = Request.Form["reply_user_name"];
             //站内信标识
             c.Comment_Flag = 0;
-
             CommentSql csl = new CommentSql();
-            csl.addComment(c);
+            bool l = csl.addComment(c);
+            //站内信数量修改
+            new MailSql().addCommentMail(c.Reply_User_Id);
+            Photo p = new Photo();
+            p.Photo_Id = c.Photo_Id;
+            PhotoSql ps = new PhotoSql();
+            ps.getPhotoInfo(p);
+            int aid = p.album_id;
+            //成功与否都返回此页面
+            return RedirectToAction("openAlbum", "Album", new { album_id=aid,page=1});
 
-            return RedirectToAction("index", "Photo", new { photo_id = c.Photo_Id });
         }
         //删除评论
         public ActionResult deleteComment(Comment c)

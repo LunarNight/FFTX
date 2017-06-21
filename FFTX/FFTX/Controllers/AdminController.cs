@@ -21,9 +21,9 @@ namespace FFTX.Controllers
                 AdminSql ads = new AdminSql();
                 List<UserRequest> list = ads.getUserRequst();
                 if(list==null){
-                    ViewBag.listinfo = "没有用户的请求";
+                    ViewBag.listinfo = "没有用户请求";
                 }else{
-                    ViewBag.listinfo = "有以下用户的请求";
+                    ViewBag.listinfo = "有以下用户请求解封";
                     ViewBag.user_request_list = list;
                 }
                 return View();
@@ -31,8 +31,8 @@ namespace FFTX.Controllers
             }else{
                 return View("LoginFail");
             }
-
         }
+        
         //验证登录
         public ActionResult confirmLogin(Admin admin)
         {
@@ -63,7 +63,12 @@ namespace FFTX.Controllers
             return View();
         }
 
-        //封号功能
+        //页面跳转
+        public ActionResult blockUserPage()
+        {
+            return View();
+        }
+        //封禁用户
         public ActionResult blockUser(AdminOperate ao)
         {
             ao.Admin_Id = ((Admin)Session["Admin"]).Admin_Id;
@@ -76,6 +81,7 @@ namespace FFTX.Controllers
             ///
             return RedirectToAction("index");
         }
+
         //处理请求(解封)
         public ActionResult handleRequest()
         {
@@ -102,6 +108,24 @@ namespace FFTX.Controllers
                 new UserSql().changeUserState(ur.User_Id, 2);
             }
             return RedirectToAction("index");
+        }
+        public ActionResult searchReason()
+        {
+            string uid = Request.QueryString["user_id"];
+            //获取被封用户详细信息
+            User u = new User();
+            u.User_Id = uid;
+            UserSql us = new UserSql();
+            u = us.getUserInfo(u);
+            ViewBag.blockUser = u;
+
+            //获取封号原因
+            AdminOperate ao = new AdminOperate();
+            AdminSql asl = new AdminSql();
+            ao = asl.getAdminOperateByuid(u);
+            ViewBag.operate = ao;
+
+            return View();
         }
 
     }

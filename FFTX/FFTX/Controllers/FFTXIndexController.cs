@@ -28,6 +28,19 @@ namespace FFTX.Controllers
                 ViewBag.group_list = group_list;
                 //code
 
+                //获取站内信信息 扔到ViewBag
+                MailSql msl = new MailSql();
+                Mail m = new Mail();
+                m.User_Id = user.User_Id;
+                msl.getMailInfo(m);
+                ViewBag.mail = m;
+                PhotoSql ps = new PhotoSql();
+                //获取排行榜图片
+                List<Photo> rankList =ps.getRankList();
+                ViewBag.rankList = rankList;
+                //获取推荐照片
+                List<Photo> recommandList = ps.getRecommandList(user);
+                ViewBag.recommandList = recommandList;
                 return View();
             }
             else
@@ -56,15 +69,18 @@ namespace FFTX.Controllers
         {
             return View();
         }
-        public ActionResult Album()
+        public ActionResult Friend()
         {
-            return RedirectToAction("index","Album");
+            return RedirectToAction("index", "Friend");
         }
         public ActionResult Board()
         {
             return RedirectToAction("index", "BoardMessage");
         }
-        
+        public ActionResult Album()
+        {
+            return RedirectToAction("index","Album");
+        }
         public ActionResult Manage()
         {
             return RedirectToAction("index", "Manage");

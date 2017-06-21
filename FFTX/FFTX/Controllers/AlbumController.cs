@@ -36,21 +36,30 @@ namespace FFTX.Controllers
         //获取相册id,获取id内的相片 是否需要验证用户id??
 
         //*****此方法应该移动到PhotoController中*******
+
         public ActionResult openAlbum()
         {
             Album al = new Album();
             AlbumSql asql = new AlbumSql();
             string id = Request.QueryString["album_id"];
+            int page = Int32.Parse(Request.QueryString["page"]);
+
             al.Album_Id = Int32.Parse(id);
             //获取相册信息
             al = asql.getAlbumInfoById(al);
             //验证是否是本人????
 
-            //al.User_Id = ((User)Session["user"]).User_Id;
-            List<Photo> list = asql.getPhotosById(al);
+            //获取分页总页数
+            int pageNum = asql.getPageNum(al);
+
+            //传入相册id 和页数
+            List<Photo> list = asql.getPhotosById(al,page);
+
             ViewBag.photo_list = list;
+            ViewBag.pageNum = pageNum;
             ViewBag.album_id = al.Album_Id;
             ViewBag.album_name = al.Album_Name;
+            ViewBag.thisPage = page;
             return View(); 
         }
 
@@ -91,7 +100,7 @@ namespace FFTX.Controllers
             album.Album_Id = aid;
             AlbumSql asl = new AlbumSql();
             asl.changeAlbumCover(album);
-            return RedirectToAction("openAlbum", new { album_id = aid });
+            return RedirectToAction("openAlbum", new { album_id = aid, page = 1 });
         }
         //重命名相册
         public ActionResult renameAlbum(Album album)
@@ -101,7 +110,7 @@ namespace FFTX.Controllers
             AlbumSql asl = new AlbumSql();
             if (asl.renameAlbum(album))
             {
-                return RedirectToAction("openAlbum", new { album_id =aid });
+                return RedirectToAction("openAlbum", new { album_id = aid, page = 1 });
             }
             else
             {

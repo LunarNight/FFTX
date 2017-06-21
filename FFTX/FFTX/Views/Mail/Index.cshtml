@@ -1,16 +1,73 @@
 ﻿@{
     Layout = null;
 }
-
+@using FFTX.Models
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Index</title>
+    <title>站内信</title>
+    <meta charset="UTF-8">
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
 </head>
 <body>
-    <div>
-        
+    
+     <div class="评论块">
+         未读评论消息 @ViewBag.mail.Comment_Num 条 :  <a href="#">清空</a><br />
+         @if ((ViewBag.comment_list != null) && (ViewBag.comment_list.Count != 0))
+         {
+             foreach (Comment c in ViewBag.comment_list)
+             {
+                 if (@c.Reply_Id==0)
+                 {
+                     <div class="Comment">
+                         <span class="hid_uid" style="display:none"> @c.Comment_User_Id</span>
+                         <span class="hid_uname" style="display:none">@c.Comment_Name </span>
+                         <span class="hid_rid" style="display:none">@c.Comment_Id </span>
+                         @c.Comment_Name: @c.Comment_Content </div>
+                 }
+                 else { 
+                     <div class="Comment">
+                         <span class="hid_uid" style="display:none"> @c.Comment_User_Id</span>
+                         <span class="hid_uname" style="display:none">@c.Comment_Name </span>
+                         <span class="hid_rid" style="display:none">@c.Comment_Id </span>
+                         @c.Comment_Name 回复 @c.Reply_User_Name: @c.Comment_Content  
+                         <a href="/Mail/commentPhoto?comment_id=@c.Comment_Id" data-toggle="modal" data-target="#lookCommentImg">查看</a>
+                         <a href="/Mail/lookPhotoComment?comment_id=@c.Comment_Id">忽略</a></div>
+                 }
+             }
+         }
+         else
+         {
+            <p>没有评论</p>
+         }
+
     </div>
+    <!-- 评论照片模态框 -->
+    <div class="modal fade" id="lookCommentImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="height:700px;overflow:scroll">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						评论照片
+					</h4>
+				</div>
+				<div class="modal-body">
+                   
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+    <script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+
 </body>
 </html>

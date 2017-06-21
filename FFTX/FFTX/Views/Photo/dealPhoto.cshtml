@@ -38,6 +38,7 @@
             <option value="Invert">反色</option>
             <option value="Binarize">黑白色</option>
             <option value="Brightness">加亮</option>
+            <option value="Sharpen">锐化</option>
         </select> 滤镜功能:通过下拉菜单选择所需要的滤镜.<br />
         
         <div class="form-group has-success" style="display:inherit">
@@ -111,7 +112,7 @@
             case 'Invert': util.imgToInvert(); break;
             case 'Binarize': util.imgToBinarize(); break;
             case 'Brightness': util.imgToBrightness(); break;
-            case 'xx': util.imgToBinarize(); break;
+            case 'Sharpen': util.imgToSharpen(); break;
             case 'xxx': util.imgToBinarize(); break;
         }
     }

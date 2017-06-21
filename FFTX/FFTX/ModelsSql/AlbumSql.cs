@@ -107,11 +107,38 @@ namespace FFTX.ModelsSql
             }
             return null;
         }
-
-        public List<Photo> getPhotosById(Album album)
+        //得到好友的相册信息(权限）
+        public List<Album> getFriendAlbumInfo(Album album)
         {
+            string sql = string.Format("select * from FFTX_Album where user_id = '{0}' and album_power=0", album.User_Id);
 
-            string sql = string.Format("select * from FFTX_Photo where album_id = '{0}'", album.Album_Id);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+
+
+            if (sqldr != null && sqldr.HasRows)
+            {
+                List<Album> list = new List<Album>();
+                while (sqldr.Read())    //读数据
+                {
+                    Album al = new Album(); //获取对象来存放数据
+                    al.Album_Id = sqldr.GetInt32(0);
+                    al.User_Id = sqldr.GetValue(1) + "";
+                    al.Album_Name = sqldr.GetValue(2) + "";
+                    al.Album_Cover = sqldr.GetValue(3) + "";
+                    al.Album_Describe = sqldr.GetValue(4) + "";
+                    al.Album_Power = sqldr.GetInt32(5);
+
+                    list.Add(al);
+                }
+                return list;
+            }
+            return null;
+        }
+
+        public List<Photo> getPhotosById(Album album,int page)
+        {
+            int pagenum = (page-1) * 10;
+            string sql = string.Format("SELECT TOP 10 * FROM FFTX_Photo WHERE album_id={0} and photo_id NOT IN (SELECT TOP {1} photo_id FROM FFTX_Photo where album_id={0} ORDER BY photo_id)ORDER BY photo_id", album.Album_Id,pagenum);
 
             SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
             if (sqldr != null && sqldr.HasRows)
@@ -136,6 +163,28 @@ namespace FFTX.ModelsSql
                 return list;
             }
             return null;
+        }
+        public int getPageNum(Album album)
+        {
+            string sql = string.Format("SELECT COUNT(0) from FFTX_Photo where album_id ={0}", album.Album_Id);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            int pageNum = 1;
+            //一页显示的数据总数
+            int onePageNum = 10;
+            if (sqldr != null && sqldr.HasRows)
+            {
+                sqldr.Read();
+                int itemSum = sqldr.GetInt32(0);
+                if (itemSum % onePageNum == 0)
+                {
+                    pageNum = (itemSum / onePageNum);
+                }
+                else
+                {
+                    pageNum = (itemSum / onePageNum) + 1;
+                }
+            }
+            return pageNum;
         }
     } 
 }

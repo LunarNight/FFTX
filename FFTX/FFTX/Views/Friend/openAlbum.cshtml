@@ -1,0 +1,192 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.Album
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+	<title>Concept HTML5 responsive template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+
+
+</head>
+<body>
+	
+
+	<div class="site-header">
+		<div class="main-navigation">
+
+			<div class="responsive_menu">
+				<ul>
+					<li><a class="show-1 templatemo_home" href="#">Gallery</a></li>
+					<li><a class="show-2 templatemo_page2" href="#">Products</a></li>
+					<li><a class="show-3 templatemo_page3" href="#">Services</a></li>
+					<li><a class="show-4 templatemo_page4" href="#">About Us</a></li>
+					<li><a class="show-5 templatemo_page5" href="#">Contact Us</a></li>
+				</ul>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 responsive-menu">
+						<a href="#" class="menu-toggle-btn">
+				            <i class="fa fa-bars"></i>
+				        </a>
+					</div> <!-- /.col-md-12 -->
+					<div class="col-md-12 main_menu">
+						<ul style="display:inline">
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a href="/FFTXIndex">好友</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Album">相册</a></li>
+							<li><a href="/FFTXIndex/Board">留言板</a></li>
+							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
+						</ul>
+						<ul class="pull-right"style="display:inline">
+							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
+						</ul>
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> <!-- /.container -->
+		</div> <!-- /.main-navigation -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="templatemo_logo" href="#" >
+						<h1>相册:@ViewBag.album_name</h1>
+					</a> <!-- /.logo -->
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.site-header -->
+	
+	<div id="menu-container">
+
+		<div class="content homepage" id="menu-1">
+			<div class="container-fluid">
+                <!-- 功能按钮(模态框) -->
+                <div class="row">
+					<div class="cow-md-2 col-md-offset-1" style="margin-bottom:10px">
+                        <a class="btn btn-primary btn-lg" href="/FFTXIndex/Album">返回</a>
+					</div>
+				</div>
+                <!-- 显示相册内的照片 -->
+				<div class="row">
+                    @if ((ViewBag.photo_list != null) && (ViewBag.photo_list.Count != 0))
+                    {
+                        int k = 0;
+                        foreach (Photo p in ViewBag.photo_list)
+                        {
+                            if (k % 5 == 0)
+                            {
+                                <div class="col-md-2 col-sm-6 col-md-offset-1">
+							        <div class="gallery-item" style="height:200px;overflow:hidden">
+                                        <div style="height:150px;overflow:hidden"><img src="@p.Photo_Src" alt="image 1"></div>
+									    <div class="overlay">
+										    <a href="@p.Photo_Src" data-rel="lightbox" class="fa fa-expand"></a> 
+                                            <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal" style="margin-top:19px;margin-left:-16px">评论</a>
+                                        </div>
+								        <div class="content-gallery">
+									        <h3>@p.Photo_Name</h3>
+								        </div>
+							        </div> <!-- /.gallery-item -->
+						        </div> <!-- /.col-md-2 -->    
+                                k++;
+                            }
+                            else
+                            {
+                                <div class="col-md-2 col-sm-6">
+							        <div class="gallery-item" style="height:200px;overflow:hidden">
+                                        <div style="height:150px;overflow:hidden"><img src="@p.Photo_Src" alt="image 1"></div>
+									    <div class="overlay">
+										    <a href="@p.Photo_Src" data-rel="lightbox" class="fa fa-expand"></a> 
+                                            <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal" style="margin-top:19px;margin-left:-16px">评论</a>
+                                        </div>
+								        <div class="content-gallery">
+									        <h3>@p.Photo_Name</h3>
+								        </div>
+							        </div> <!-- /.gallery-item -->
+						        </div> <!-- /.col-md-2 -->    
+                                k++;
+                            }                    
+                        }
+                    }
+				</div> <!-- /.row -->
+                <!-- 分页信息 -->
+                <div class="row">
+                    @for (int i = 1; i <= ViewBag.pageNum;i++ )
+                    {
+                        <div class="col-md-1 col-md-push-1">
+                        <a href="/Friend/openAlbum?album_id=@ViewBag.album_id&page=@i" style="margin:3px">@i</a>
+                        </div>
+                    }
+                </div>
+			</div> <!-- /.slide-item -->
+		</div> <!-- /.homepage -->
+
+		<div class="copyrights">Collect from <a href="#" >Website Template</a></div>
+	</div> <!-- /#menu-container -->
+
+        <!-- 评论照片模态框 -->
+    <div class="modal fade" id="commentImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="height:700px;overflow:scroll">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						评论照片
+					</h4>
+				</div>
+				<div class="modal-body">
+                   
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
+
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>安德森</p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/modernizr.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+	<script src="/Content/js/tabs.js"></script>
+	<script src="/Content/js/jquery.lightbox.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
+    <script type="text/javascript">
+        function getPhotoId(imgid, hid) {
+            console.log(hid);
+            document.getElementById(hid).value = imgid;
+            console.log(document.getElementById(hid).value);
+        }
+    </script>
+</body>
+</html>

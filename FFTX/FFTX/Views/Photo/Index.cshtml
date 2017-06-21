@@ -54,6 +54,7 @@
     <div id="图片保存">保存图片</div>
 
     <div class="评论块" style="background-color:#0094ff">
+        
          @if ((ViewBag.comment_list != null) && (ViewBag.comment_list.Count != 0))
          {
              foreach (Comment c in ViewBag.comment_list)
@@ -101,7 +102,6 @@
 
     </div>
 <script type="text/javascript">
-    
     var param = new Object();
     param.image_canvas_id = "canvas";
     param.watertext_canvas_id = "watercanvas";

@@ -30,8 +30,6 @@
 
 </head>
 <body>
-	
-
 	<div class="site-header">
 		<div class="main-navigation">
 
@@ -52,8 +50,7 @@
 				            <i class="fa fa-bars"></i>
 				        </a>
 					</div> <!-- /.col-md-12 -->
-					<div class="col-md-12 main_menu">
-					
+					<div class="col-md-12 main_menu">				
 						<ul style="display:inline">
 							<li><a href="#">主页</a></li>
 							<li><a href="#">好友</a></li>
@@ -63,12 +60,10 @@
 						</ul>
 						<ul class="pull-right"style="display:inline">
 							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
-						</ul>
-						
+						</ul>						
 					</div> <!-- /.col-md-12 -->
 				</div> <!-- /.row -->
 			</div> 
-            <a class="navigation-bg" href="#" title=""  target="_blank"><img src="images/header.png" alt=""  /></a><!-- /.container -->
 		</div> <!-- /.main-navigation -->
 		<div class="container">
 			<div class="row">
@@ -80,13 +75,11 @@
 			</div> <!-- /.row -->
 		</div> <!-- /.container -->
 	</div> <!-- /.site-header -->
-	
 	<hr />
 	<div class="container" >
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2" style="border:1px #e1dfe1 solid;background-color:#fffeff"> 
-				<div class = "row">
-					
+				<div class = "row">					
 					<div class="col-md-3" style=""><!--左侧头像-->
 						<div class="row" style="margin-top:20px;margin-bottom:20px">
 							<div class="col-md-12 text-center">
@@ -94,21 +87,21 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 text-center"><a href="#">修改头像(待实现)</a></div>
+							<div class="col-md-12 text-center"><a href="#" data-toggle="modal" data-target="#changeHeadImg">修改头像</a></div>
 						</div>
 					</div>
 					<div class="col-md-9" style="border-left:1px #e1dfe1 solid;"><!--用户基本信息-->
 						<div class="row" style="color:#000">
 							<div class="col-md-8" style="font-size:20px;margin-top:10px">基本资料</div>
-							<div class="col-md-2" style="margin-top:10px"><a href="#" class="text-info">修改信息(待实现)</a></div>
-							<div class="col-md-2" style="margin-top:10px"><a href="#" class="text-info">修改密码(待实现)</a></div>
+							<div class="col-md-2" style="margin-top:10px"><a href="#" data-toggle="modal" data-target="#changeInfo" class="text-info">修改信息</a></div>
+							<div class="col-md-2" style="margin-top:10px"><a href="#" data-toggle="modal" data-target="#changePassword" class="text-info">修改密码</a></div>
 						</div>
 						<hr />
 						<div class="row">
 							<div class="col-md-3">
 								用户名:
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-9">
 								@(((User)Session["user"]).User_Name)
 							</div>
 						</div>
@@ -116,7 +109,7 @@
 							<div class="col-md-3">
 								性别:
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-9">
 								@(((User)Session["user"]).User_Sex)
 							</div>
 						</div>
@@ -124,7 +117,7 @@
 							<div class="col-md-3">
 								邮箱:
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-9">
 								@(((User)Session["user"]).User_Email)
 							</div>
 						</div>
@@ -132,18 +125,154 @@
 							<div class="col-md-3">
 								联系电话:
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-9">
 								@(((User)Session["user"]).User_Phone)
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		
+			</div>		
 		</div>
-	
 	</div>
-	
+    <!-- 模态框（Modal） 修改头像 -->
+    <div class="modal fade" id="changeHeadImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					    &times;
+				    </button>
+				    <h4 class="modal-title" id="myModalLabel">
+					    修改头像
+				    </h4>
+			    </div>
+			    <div class="modal-body">
+				    @using (Html.BeginForm("changeHeadImg", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="file" name="file" id="fileInput"/> 
+                        
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="上传"/>
+                            
+					        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+					        </button>
+				        </div>
+                    }
+			    </div>			    
+		    </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+    </div><!-- /模态框（Modal） -->
+    <!-- 模态框（Modal） 修改个人信息 -->
+    <div class="modal fade" id="changeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					    &times;
+				    </button>
+				    <h4 class="modal-title" id="myModalLabel">
+					    修改个人信息
+				    </h4>
+			    </div>
+			    <div class="modal-body">
+				    @using (Html.BeginForm("changeInfo", "Manage", FormMethod.Post))
+                    {
+                        <div class="row">
+                            <div class="col-md-3">
+                                用户昵称：
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.User_Name, new { @Value= @ViewBag.user.User_Name,style="width:105px;" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                email：
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.User_Email, new { @Value= @ViewBag.user.User_Email,style="width:105px;" })
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                性别：
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.User_Sex, new { @Value= @ViewBag.user.User_Sex,style="width:105px;" })
+                            </div>
+                        </div>            
+                          <div class="row">
+                            <div class="col-md-3">
+                                电话：
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.User_Phone, new { @Value= @ViewBag.user.User_Phone,style="width:105px;" })
+                            </div>
+                        </div>                                              
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="修改" />
+				            <button type="button" class="btn btn-default" data-dismiss="modal">取消
+				            </button>
+			            </div>
+                     }
+			    </div>			    
+		    </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+    </div><!-- /模态框（Modal） -->
+
+     <!-- 模态框（Modal） 修改密码 -->
+    <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					    &times;
+				    </button>
+				    <h4 class="modal-title" id="myModalLabel2">
+					    修改密码
+				    </h4>
+			    </div>
+			    <div class="modal-body">
+				    @using (Html.BeginForm("changePassword", "Manage", FormMethod.Post))
+                    {
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        旧密码:</div>
+                                    <div class="col-md-8">
+                                         @Html.PasswordFor(model => model.User_Password)<br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        新密码:
+                                    </div>
+                                    <div class="col-md-8">
+                                         @Html.PasswordFor(model => model.Password_Answer)<br />
+                                    </div>
+                                 </div>
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        确认密码:
+                                    </div>
+                                    <div class="col-md-8">
+                                         @Html.PasswordFor(model => model.User_Password)<br />
+                                    </div>
+                                </div>
+                            </div>
+                                               
+                        
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="修改" />
+				            <button type="button" class="btn btn-default" data-dismiss="modal">取消
+				            </button>
+			            </div>
+                     }
+			    </div>			    
+		    </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+    </div><!-- /模态框（Modal） -->
+
 	<div id="templatemo_footer">
 		<div class="container">
 			<div class="row">
@@ -160,8 +289,49 @@
     <script src="/Content/js/modernizr.js"></script>
 	<script src="/Content/js/bootstrap.js"></script>
 	<script src="/Content/js/tabs.js"></script>
-	<script src="/Content/js/jquery.lightbox.js"></script>
-	<script src="/Content/js/templatemo_custom.js"></script>
-
+    <!--修改密码提示 -->
+    @if(ViewBag.pwdState!=null){
+        if(ViewBag.pwdState==1){
+            <script type="text/javascript">
+                alert("修改密码成功");
+            </script>
+        }else{
+            <script type="text/javascript">
+                alert("修改密码失败");
+            </script>
+        }
+    }
+    <!--修改信息提示 -->
+    @if (ViewBag.infoState!=null)
+    {
+        if (ViewBag.infoState==1)
+        {
+            <script type="text/javascript">
+                alert("修改信息成功");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript">
+                alert("修改信息失败");
+            </script>
+        }
+    }
+    <!--修改头像提示 -->
+    @if (ViewBag.headImgState!= null)
+    {
+        if (ViewBag.headImgState== 1)
+        {
+            <script type="text/javascript">
+                alert("修改头像成功,重新登录后可见");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript">
+                alert("修改头像失败");
+            </script>
+        }
+    }
 </body>
 </html>

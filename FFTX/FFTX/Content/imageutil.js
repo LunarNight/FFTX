@@ -96,11 +96,25 @@ function getImageUtil(){
 	    var desData = ImageFilters.Binarize(imgData,1);
 	    this.drawImgData(this.image_canvas, desData);
 	}
+    //加亮处理
 	Util.imgToBrightness = function () {
 	    var imgData = this.getImgData(this.image_canvas);
 	    var desData = ImageFilters.Brightness(imgData, 60);
 	    this.drawImgData(this.image_canvas, desData);
 	}
+    //锐化处理
+	Util.imgToSharpen = function () {
+	    var imgData = this.getImgData(this.image_canvas);
+	    var desData = ImageFilters.Sharpen(imgData, 7);
+	    this.drawImgData(this.image_canvas, desData);
+	}
+    //边缘化
+	Util.imgToEdge = function () {
+	    var imgData = this.getImgData(this.image_canvas);
+	    var desData = ImageFilters.Edge(imgData);
+	    this.drawImgData(this.image_canvas, desData);
+	}
+
 	/**    裁剪功能    **/
 	//裁剪图片
 	Util.cutImg = function(){

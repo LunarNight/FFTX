@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+@model FFTX.Models.Album
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+	<title>我的相册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+
+
+</head>
+<body>
+	
+
+	<div class="site-header">
+		<div class="main-navigation">
+
+			<div class="responsive_menu">
+				<ul>
+					<li><a class="show-1 templatemo_home" href="#">广场</a></li>
+					<li><a class="show-2 templatemo_page2" href="#">好友</a></li>
+					<li><a class="show-3 templatemo_page3" href="#">相册</a></li>
+					<li><a class="show-4 templatemo_page4" href="#">留言板</a></li>
+					<li><a class="show-5 templatemo_page5" href="#">个人中心</a></li>
+				</ul>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 responsive-menu">
+						<a href="#" class="menu-toggle-btn">
+				            <i class="fa fa-bars"></i>
+				        </a>
+					</div> <!-- /.col-md-12 -->
+					<div class="col-md-12 main_menu">
+					
+						<ul style="display:inline">
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a href="/FFTXIndex">好友</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Album">相册</a></li>
+							<li><a href="/FFTXIndex/Board">留言板</a></li>
+							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
+						</ul>
+						<ul class="pull-right"style="display:inline">
+							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
+						</ul>
+						
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> 
+            <!-- /.container -->
+		</div> <!-- /.main-navigation -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="templatemo_logo" href="#" >
+						<h1>@ViewBag.friend.User_Name 的相册</h1>
+					</a> <!-- /.logo -->
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.site-header -->
+	
+	<div id="menu-container">
+
+		<div class="content homepage" id="menu-1">
+			<div class="container-fluid">
+                <div class="row">
+					<div class="cow-md-2 col-md-offset-1" style="margin-bottom:10px">
+						
+					</div>
+				</div>
+
+				<div class="row">
+                    @if ((ViewBag.list != null) && (ViewBag.list.Count != 0))
+                    {   int k = 0;
+                        foreach (Album al in ViewBag.list)
+                        {
+                            if (k % 5 == 0)
+                            {
+                                <div class="col-md-2 col-sm-6 col-md-offset-1">
+						            <div class="gallery-item" style="height:200px;overflow:hidden">
+                                        <div style="height:150px;overflow:hidden">
+                                            <a href="/Friend/openAlbum?album_id=@al.Album_Id&page=1">
+                                            <img src="@al.Album_Cover" alt="image 1">
+                                            </a>
+                                        </div>
+							            <div class="content-gallery">
+								            <h3>@al.Album_Name</h3>
+							            </div>
+						            </div> <!-- /.gallery-item -->
+					            </div> <!-- /.col-md-2 -->
+                                k++;
+                            }
+                            else
+                            {
+                                <div class="col-md-2 col-sm-6">
+						            <div class="gallery-item" style="height:200px;overflow:hidden">
+								        <div style="height:150px;overflow:hidden">
+                                            <a href="/Friend/openAlbum?album_id=@al.Album_Id&page=1">
+                                            <img src="@al.Album_Cover" alt="image 1">
+                                            </a>
+                                        </div>	
+							            <div class="content-gallery">
+								            <h3>@al.Album_Name</h3>
+							            </div>
+						            </div> <!-- /.gallery-item -->
+					            </div> <!-- /.col-md-2 -->
+                                k++;
+                            }
+                            
+                        }
+                    }
+                </div> <!-- /.row -->
+			</div> <!-- /.slide-item -->
+		</div> <!-- /.homepage -->
+
+		<div class="copyrights">Collect from <a href="#" >Website Template</a></div>
+
+
+	</div> <!-- /#menu-container -->
+    
+
+    
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>安德森</p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/modernizr.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+	<script src="/Content/js/tabs.js"></script>
+	<script src="/Content/js/jquery.lightbox.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
+
+</body>
+</html>
