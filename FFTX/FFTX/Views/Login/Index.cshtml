@@ -21,23 +21,41 @@
     	<div class="zc">
         	<div class="bj_bai">
             <h3>登录</h3>
-			@using (Html.BeginForm("Login", "Login", FormMethod.Post))
-		   {
-			   <p>@Html.TextBoxFor(model => model.User_Id,new {@class="kuang_txt",placeholder="用户名"})
-				  @Html.PasswordFor(model=>model.User_Password,new {@class="kuang_txt",placeholder="密码"})
-			   <input type="submit" value="登录" class="btn_zhuce"/>
-               </p>
-		   }
-   
+			@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { onsubmit = "return yz()" }))
+           {
+			           <p>@Html.TextBoxFor(model => model.User_Id, new { @class = "kuang_txt", placeholder = "用户名" })
+				          @Html.PasswordFor(model => model.User_Password, new { @class = "kuang_txt", placeholder = "密码" })
+			           <input type="submit" value="登录" class="btn_zhuce"/>
+                       </p>
+           }
             </div>
         	<div class="bj_right" style="text-align:center">
                 <p style="margin-top:70px">没有账号，<a href="/Rigister">立即注册</a></p><br />
-                <p ><a href="/FindPwd/Index">忘记密码(测试接口)</a></p><br />
+                <p ><a href="/FindPwd/ConfirmInfo">忘记密码</a></p><br />
             </div>
         </div>
         
     </div>
 </div>
-    
+
+    <script type="text/javascript">
+        function $(k) {
+            return document.getElementById(k);
+        }
+
+        function yz() {
+            if ($("User_Id").value=="") {
+                alert("用户名不能为空");
+                return false;
+            }
+            if ($("User_Password").value == "") {
+                alert("密码不能为空");
+                return false;
+            }
+            return true;
+        }
+       
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,49 @@
+.zxj-tool{
+    padding: 10px 0;
+    border-bottom: solid 1px #cfcfcf;
+
+}
+.zxj-tool span{
+    color: black;
+}
+.zxj-tool a{
+    margin-left:10px;
+}
+
+.zxj-main{
+    padding: 20px;
+    border-bottom: solid 1px #cfcfcf;
+}
+.zxj-main img{
+    float: left;
+
+}
+.zxj-box{
+    float: left;
+}
+.zxj-box .zxj-top{
+    margin: 10px 0 30px;
+}
+.zxj-top .zxj-username{
+   margin-right: 10px;
+}
+.zxj-box .zxj-content{
+    min-height: 200px;
+    height: auto;
+
+}
+.zxj-box .zxj-bottom{
+    margin: 30px 0 10px;
+}
+.zxj-box .zxj-bottom a{
+    margin: 0 20px;
+}
+.leave-message{
+    margin: 20px 0;
+}
+.input-window{
+    height: 300px;
+    width: 100%;
+    border: solid 1px #cfcfcf;
+    margin: 10px 0 20px;
+}

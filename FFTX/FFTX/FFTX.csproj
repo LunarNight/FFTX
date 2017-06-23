@@ -147,6 +147,7 @@
       <DependentUpon>FFTX.mdf</DependentUpon>
     </Content>
     <Content Include="Content\1.jpg" />
+    <Content Include="Content\111.png" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\dist\css\bootstrap.css" />
@@ -395,10 +396,11 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\morris-0.4.3.min.css" />
-    <Content Include="Content\css\sb-admin.css" />
+    <Content Include="Content\css\x-admin.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\templatemo_misc.css" />
     <Content Include="Content\css\templatemo_style.css" />
+    <Content Include="Content\css\zxj_style.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -767,7 +769,6 @@
     <Content Include="Views\Manage\changeInfo.cshtml" />
     <Content Include="Views\Manage\changePassword.cshtml" />
     <Content Include="Views\Photo\A.cshtml" />
-    <Content Include="Views\FindPwd\Index.cshtml" />
     <Content Include="Views\BoardMessage\Index.cshtml" />
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Login\Upload.cshtml" />
@@ -790,6 +791,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\blockUserPage.cshtml" />
     <Content Include="Views\Admin\searchReason.cshtml" />
+    <Content Include="Views\OtherFunction\search.cshtml" />
+    <Content Include="Views\Friend\showFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -114,7 +114,32 @@ function getImageUtil(){
 	    var desData = ImageFilters.Edge(imgData);
 	    this.drawImgData(this.image_canvas, desData);
 	}
-
+    //浮雕
+	Util.imgToEmboss = function () {
+	    var imgData = this.getImgData(this.image_canvas);
+	    var desData = ImageFilters.Emboss(imgData);
+	    this.drawImgData(this.image_canvas, desData);
+	}
+    //油画
+	Util.imgToOil = function () {
+	    var imgData = this.getImgData(this.image_canvas);
+	    var desData = ImageFilters.Oil(imgData,2,77);
+	    this.drawImgData(this.image_canvas, desData);
+	}
+    //模糊
+	Util.imgToStackBlur = function () {
+	    var imgData = this.getImgData(this.image_canvas);
+	    console.log("模糊模糊");
+	    var desData = ImageFilters.StackBlur(imgData,5);
+	    this.drawImgData(this.image_canvas, desData);
+	}
+    //马赛克
+	Util.imgToMosaic = function () {
+	    console.log("马赛克啊");
+	    var imgData = this.getImgData(this.image_canvas);
+	    var desData = ImageFilters.Mosaic(imgData,5);
+	    this.drawImgData(this.image_canvas, desData);
+	}
 	/**    裁剪功能    **/
 	//裁剪图片
 	Util.cutImg = function(){

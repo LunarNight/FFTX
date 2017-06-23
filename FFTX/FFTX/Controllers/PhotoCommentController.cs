@@ -16,7 +16,6 @@ namespace FFTX.Controllers
         {
             return View();
         }
-        //添加评论
         public ActionResult addComment(Comment c)
         {
             //获取用户名以及用户id
@@ -40,14 +39,22 @@ namespace FFTX.Controllers
             PhotoSql ps = new PhotoSql();
             ps.getPhotoInfo(p);
             int aid = p.album_id;
-            //成功与否都返回此页面
-            return RedirectToAction("openAlbum", "Album", new { album_id=aid,page=1});
+
+            //判断从哪个页面跳转过来
+            string from = Request.Form["from"];
+            if (from != null && from.Equals("search"))
+            {
+                string kwd = Request.Form["keywords"];
+                return RedirectToAction("search", "OtherFunction", new { keywords = kwd });
+            }
+            else if (from != null && from.Equals("FFTX"))
+            {
+                return RedirectToAction("Index", "FFTXIndex");
+            }
+            //跳转回相册
+            return RedirectToAction("openAlbum", "Album", new { album_id = aid, page = 1 });
 
         }
-        //删除评论
-        public ActionResult deleteComment(Comment c)
-        {
-            return View();
-        }
+       
     }
 }

@@ -167,7 +167,18 @@ namespace FFTX.ModelsSql
             else
                 return false;
         }
-
+        public bool deleteGroup(Group g)
+        {
+            //删除分组
+            string sql = string.Format("DELETE FROM FFTX_Friend WHERE group_id='{0}'", g.Group_Id);
+            int result = SqlDB.ExecuteNonQuery(sql);
+            string a = string.Format("delete from FFTX_Group_to_Friend where user_id='{0}' and group_id='{1}'", g.User_Id, g.Group_Id);
+            int b = SqlDB.ExecuteNonQuery(a);
+            if (result == 1 && b == 1)
+                return true;
+            else
+                return false;
+        }
     
     }
        

@@ -16,7 +16,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/Content/css/bootstrap.css" rel="stylesheet">
     <!-- Add custom CSS here -->
-    <link href="/Content/css/sb-admin.css" rel="stylesheet">
+    <link href="/Content/css/x-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="/Content/font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
     <link rel="stylesheet" href="/Content/css/morris-0.4.3.min.css">
@@ -62,11 +62,18 @@
               <div class="panel-body">
                 <div>
                     @using (Html.BeginForm("blockUser", "Admin", FormMethod.Post))
-                    {
-                        <p>所封用户ID:@Html.TextBoxFor(model => model.User_Id)<br />
-                            封号原因:@Html.TextAreaFor(model => model.Operate_Reason)
-                        <input type="submit" value="确定" />
-                        </p>
+                    {   <div class="row">
+                            <div class="col-md-2">所封用户ID</div>
+                            <div class="col-md-4">@Html.TextBoxFor(model => model.User_Id)</div>
+                        </div>
+                        <div class="row" style="margin-top:5px;margin-bottom:5px">
+                            <div class="col-md-2"> 封号原因</div>
+                            <div class="col-md-4">@Html.TextAreaFor(model => model.Operate_Reason)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><input type="submit" value="确定" /></div>
+                        </div>
+                        
                     }
                     
                 </div>

@@ -48,23 +48,8 @@
 	<div class="site-header">
 		<div class="main-navigation">
 
-			<div class="responsive_menu">
-				<ul>
-					<li><a class="templatemo_home" href="#">广场</a></li>
-					<li><a href="#">好友</a></li>
-					<li><a href="#">相册</a></li>
-					<li><a href="#">留言板</a></li>
-					<li><a href="#">个人中心</a></li>
-				</ul>
-			</div>
-
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 responsive-menu">
-						<a href="#" class="menu-toggle-btn">
-				            <i class="fa fa-bars"></i>
-				        </a>
-					</div> <!-- /.col-md-12 -->
 					<!--  广场 好友 相册 留言-->
 					<div class="col-md-12 main_menu">
 					
@@ -93,12 +78,11 @@
                         }else{
                             <div>没有消息</div>
                         }
-					<form class="navbar-form" method="post">
+					<form class="navbar-form" method="post" action="/OtherFunction/search">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="搜索照片">
+							<input type="text" class="form-control" placeholder="搜索照片" name="keywords">
 						</div>
-                        
-						<button type="submit" class="btn btn-default">搜索</button>
+                        <input type="submit" class="btn btn-default" value="搜索" />
 					</form>
 				</div> <!-- /.col-md-12 -->
 			</div> <!-- /.row -->
@@ -134,7 +118,7 @@
                         foreach (Photo p in ViewBag.rankList)
                         {   <div class="row" style="margin-top:5px">
                                 <div class="col-md-6 col-md-offset-1">
-                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal">
+                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id&from=FFTX" data-target="#commentImg"  data-toggle="modal">
                                         <img class="" style="width:100%" src="@p.Photo_Src"/>
                                     </a>
                                 </div>
@@ -153,7 +137,7 @@
                         foreach (Photo p in ViewBag.recommandList)
                         {   <div class="row" style="margin-top:5px">
                                 <div class="col-md-6 col-md-offset-1">
-                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id" data-target="#commentImg"  data-toggle="modal">
+                                    <a href="/Photo/commentPhoto?photo_id=@p.Photo_Id&from=FFTX" data-target="#commentImg"  data-toggle="modal">
                                         <img class="" style="width:100%" src="@p.Photo_Src"/>
                                     </a>
                                 </div>

@@ -21,18 +21,18 @@
     	<div class="zc">
         	<div class="bj_bai">
             <h3>欢迎注册</h3>
-			 @using (Html.BeginForm("Register", "Rigister", FormMethod.Post))
-			   {
-				    @Html.TextBoxFor(model => model.User_Id,new {@class="kuang_txt",placeholder="帐号"})<br />
-					   @Html.PasswordFor(model=>model.User_Password,new {@class="kuang_txt",placeholder="密码"})<br />
-					   <input type="password" class="kuang_txt" placeholder="确认密码" />
+			 @using (Html.BeginForm("Register", "Rigister", FormMethod.Post, new { onsubmit="return yz()"}))
+    {
+				    @Html.TextBoxFor(model => model.User_Id, new { @class = "kuang_txt", placeholder = "帐号" })<br />
+					   @Html.PasswordFor(model => model.User_Password, new { @class = "kuang_txt", placeholder = "密码" })<br />
+					   <input type="password" id="CWD" class="kuang_txt" placeholder="确认密码" />
        
-					   @Html.TextBoxFor(model =>model.User_Name,new {@class="kuang_txt",placeholder="昵称"})<br />
-					   @Html.TextBoxFor(model=>model.Password_Question,new {@class="kuang_txt",placeholder="找回密码问题"})<br />
-					   @Html.TextBoxFor(model=>model.Password_Answer,new {@class="kuang_txt",placeholder="找回密码答案"})<br />
+					   @Html.TextBoxFor(model => model.User_Name, new { @class = "kuang_txt", placeholder = "昵称" })<br />
+					   @Html.TextBoxFor(model => model.Password_Question, new { @class = "kuang_txt", placeholder = "找回密码问题" })<br />
+					   @Html.TextBoxFor(model => model.Password_Answer, new { @class = "kuang_txt", placeholder = "找回密码答案" })<br />
 				   <input type="submit" value="注册" class="btn_zhuce"/>
 				   
-			   }
+    }
        	  	  
             </div>
         	<div class="bj_right">
@@ -45,5 +45,38 @@
     </div>
 
 </div>
+    <script type="text/javascript">
+        function $(k) {
+            return document.getElementById(k);
+        }
+        function yz() {
+            if ($("User_Id").value == "") {
+                alert("用户名不能为空");
+                return false;
+            }
+            if ($("User_Password").value.length < 5 || $("User_Password").value.length>18) {
+                alert("密码应为6~18位");
+                return false;
+            }
+            if (!($("User_Password").value == $("CWD").value)) {
+                alert("两次密码输入不一致");
+                return false;
+            }
+            if ($("User_Name").value == "") {
+                alert("用户昵称不能为空");
+                return false;
+            }
+            if ($("Password_Question").value == "") {
+                alert("密码问题不能为空");
+                return false;
+            }
+            if ($("Password_Answer").value == "") {
+                alert("密码答案不能为空");
+                return false;
+            }
+            return true;
+        }
+        "aaaa".length
+    </script>
 </body>
 </html>

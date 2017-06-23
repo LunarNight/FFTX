@@ -16,18 +16,27 @@ namespace FFTX.Controllers
         {
             return View();
         }
-        //排行榜
-        public List<Photo> getChart()
+        //搜索照片名 调用 PhotoSql searchName
+        public ActionResult search()
         {
-            return null;
-        }
-        //搜索 
-        public ActionResult search(string keywords)
-        {
-            searchUser(keywords);
-            searchPhoto(keywords);
+            //搜索传递
+            string keywords = Request.Form["keywords"];
+            //搜索后评论照片传递参数
+            if (keywords == null)
+            {
+                keywords = Request.QueryString["keywords"];
+            }
+            //防止出错
+            if(keywords==null){
+                keywords = "空";
+            }
+            PhotoSql ps = new PhotoSql();
+            List<Photo> plist = ps.searchName(keywords);
+            ViewBag.searchResult = plist;
+            ViewBag.keywords = keywords;
             return View();
         }
+        //
         public List<User> searchUser(string user_name)
         {
             return null;

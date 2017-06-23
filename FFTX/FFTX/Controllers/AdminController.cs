@@ -25,7 +25,8 @@ namespace FFTX.Controllers
                 }else{
                     ViewBag.listinfo = "有以下用户请求解封";
                     ViewBag.user_request_list = list;
-                }
+                 }
+                ViewBag.admin_name = ((Admin)Session["Admin"]).Admin_name;
                 return View();
 
             }else{
@@ -42,6 +43,7 @@ namespace FFTX.Controllers
             {
                 //验证信息成功
                 //成功设置session
+                
                 Session["LoginState"] = "已登录";
                 Session["Admin"] = admin;
                 ViewBag.se = Session["LoginState"].ToString();

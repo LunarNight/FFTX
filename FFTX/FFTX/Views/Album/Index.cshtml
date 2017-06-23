@@ -35,25 +35,9 @@
 	<div class="site-header">
 		<div class="main-navigation">
 
-			<div class="responsive_menu">
-				<ul>
-					<li><a class="show-1 templatemo_home" href="#">广场</a></li>
-					<li><a class="show-2 templatemo_page2" href="#">好友</a></li>
-					<li><a class="show-3 templatemo_page3" href="#">相册</a></li>
-					<li><a class="show-4 templatemo_page4" href="#">留言板</a></li>
-					<li><a class="show-5 templatemo_page5" href="#">个人中心</a></li>
-				</ul>
-			</div>
-
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 responsive-menu">
-						<a href="#" class="menu-toggle-btn">
-				            <i class="fa fa-bars"></i>
-				        </a>
-					</div> <!-- /.col-md-12 -->
 					<div class="col-md-12 main_menu">
-					
 						<ul style="display:inline">
 							<li><a href="/FFTXIndex">广场</a></li>
 							<li><a href="/FFTXIndex">好友</a></li>
@@ -107,6 +91,10 @@
                                             <img src="@al.Album_Cover" alt="image 1">
                                             </a>
                                         </div>
+                                        <div class="overlay">
+                                            <a data-toggle="modal" data-target="#deleteAlbum" onclick="getAlbumId(@al.Album_Id,'delete_album_id')" style="margin-left:20px">删除</a>
+                                            <a href="/Album/openAlbum?album_id=@al.Album_Id&page=1" >进入</a>
+                                        </div>
 							            <div class="content-gallery">
 								            <h3>@al.Album_Name</h3>
 							            </div>
@@ -123,6 +111,10 @@
                                             <img src="@al.Album_Cover" alt="image 1">
                                             </a>
                                         </div>	
+                                        <div class="overlay">
+                                            <a href="#"data-toggle="modal" data-target="#deleteAlbum" onclick="getAlbumId(@al.Album_Id,'delete_album_id')" style="margin-left:20px">删除</a>
+                                            <a href="/Album/openAlbum?album_id=@al.Album_Id&page=1" >进入</a>
+                                        </div>
 							            <div class="content-gallery">
 								            <h3>@al.Album_Name</h3>
 							            </div>
@@ -163,8 +155,6 @@
                                    <option value="0" selected>所有人可见</option>
                                    <option value="1">个人可见</option>
                                </select>
-                               
-                           
                            </p>
                         <div class="modal-footer">
 					        
@@ -179,7 +169,33 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div><!-- /模态框 -->
-
+    <!-- 删除相册模态框 -->
+    <div class="modal fade" id="deleteAlbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						删除相册
+					</h4>
+				</div>
+				<div class="modal-body">
+                    <div class="row">
+                        <p style="font-size:25px;color:#fb2525">此操作将清空相册内所有照片</p>
+                    </div>
+                    <div class="row" style="margin-top:15px">
+                        <form action="/Album/deleteAlbum" method="post">
+                            <input type="hidden" name="delete_album_id" id="delete_album_id" />
+                            <div class="col-md-3"><input class="btn btn-primary" type="submit" value="确定" /></div>
+                            <div class="col-md-3"><a class="btn btn-default" data-dismiss="modal">取消</a></div>
+                        </form>
+                    </div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div><!-- /模态框 -->
     
 	<div id="templatemo_footer">
 		<div class="container">
@@ -197,8 +213,17 @@
     <script src="/Content/js/modernizr.js"></script>
 	<script src="/Content/js/bootstrap.js"></script>
 	<script src="/Content/js/tabs.js"></script>
-	<script src="/Content/js/jquery.lightbox.js"></script>
+    <script src="/Content/js/jquery.lightbox.js"></script>
 	<script src="/Content/js/templatemo_custom.js"></script>
+    
+    <script type="text/javascript">
+        function getAlbumId(albumid, hid) {
+            console.log(hid);
 
+            document.getElementById(hid).value = albumid;
+
+            console.log(document.getElementById(hid).value);
+        }
+    </script>
 </body>
 </html>

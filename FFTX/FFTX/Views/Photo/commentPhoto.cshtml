@@ -70,6 +70,8 @@
                <input type="hidden" class="hidhidhid" name="photo_id" value="@ViewBag.photo.Photo_Id" />
                @Html.TextBoxFor(model => model.Comment_Content)
 			   <input type="submit" value="评论" />
+               <input type="hidden" class="hidhidhid" name="from" value="@ViewBag.from" />  
+               <input type="hidden" class="hidhidhid" name="keywords" value="@ViewBag.kwd" />  
 			   </p>
 		   }
     </div>

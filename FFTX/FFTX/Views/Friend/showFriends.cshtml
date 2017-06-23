@@ -1,0 +1,134 @@
+﻿@{
+    Layout = null;
+}
+@using FFTX.Models
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> 
+<![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> 
+<![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+	<title>Concept HTML5 responsive template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    
+
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/css/animate.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/Content/css/templatemo_misc.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+	<style type="text/css">
+		.share_padding{
+			padding-left:15px;
+			padding-bottom:10px;
+			margin-top:10px;
+			margin-bottom:10px;
+		}
+		.margin_top{
+		 margin-top:40px;
+		}
+		.comment_padding{
+			padding-bottom:3px;
+		}
+	</style>
+
+</head>
+<body>
+	
+
+	<div class="site-header">
+		<div class="main-navigation">
+
+			<div class="container">
+				<div class="row">
+					<!--  广场 好友 相册 留言-->
+					<div class="col-md-12 main_menu">
+					
+						<ul style="display:inline">
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Friend">好友</a></li>
+							<li><a href="/FFTXIndex/Album">相册</a></li>
+							<li><a href="/FFTXIndex/BoardMessage">留言板</a></li>
+							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
+						</ul>
+						
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> 
+           <!-- /.container -->
+		</div> <!-- /.main-navigation -->
+		<hr />
+
+	</div> <!-- /.site-header -->
+	<hr />
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="row" style="font-size:36px;margin-bottom:20px;">
+                    我的好友
+				</div>
+                <ul class="list-group">
+                    @if ((ViewBag.group_list != null) && (ViewBag.group_list.Count != 0))
+                    {
+                        foreach (Group g in ViewBag.group_list)
+                        {
+                        
+                            <li class="list-group-item">
+                                <a href="/Friend/showFriends?group_id=@g.Group_Id" style="font-size:22px;margin-bottom:5px;">  
+                                    <span>@g.Group_Name:@g.Group_Friend_Num 人</span>
+                                </a>
+                            </li>
+                                if (g.Group_Id == ViewBag.group_id)
+                                {   <li class="list-group-item">
+                                    <ul class="list-group">
+                                    @if ((ViewBag.flist != null) && (ViewBag.flist.Count != 0))
+                                    {
+                                        foreach (Friend f in ViewBag.flist)
+                                        {
+                                            <li class="list-group-item">
+                                                @f.Follow_Id_Remark <a href="/Friend/albumPage?user_id=@(((User)Session["user"]).User_Id)&friend_id=@f.Follow_Id">查看好友相册</a>
+                                            </li>
+                                        }
+                                    }
+                                    </ul>
+                                    </li>
+                                }
+                        }
+                    }
+                    </ul>
+                
+			</div>
+			
+		</div>
+
+	</div> <!-- /#menu-container -->
+
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>安德森</p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+    <script src="/Content/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/js/modernizr.js"></script>
+	<script src="/Content/js/bootstrap.js"></script>
+	<script src="/Content/js/tabs.js"></script>
+	<script src="/Content/js/jquery.lightbox.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
+
+</body>
+</html>

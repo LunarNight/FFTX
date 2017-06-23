@@ -36,7 +36,7 @@ namespace FFTX.Controllers
         //获取相册id,获取id内的相片 是否需要验证用户id??
 
         //*****此方法应该移动到PhotoController中*******
-
+        //打开相册
         public ActionResult openAlbum()
         {
             Album al = new Album();
@@ -81,15 +81,16 @@ namespace FFTX.Controllers
         }
 
         //删除相册
-        public ActionResult deleteAlbum(Album album)
+        public ActionResult deleteAlbum()
         {
             //删除相册内所有图片
-
-            //删除图片的信息 (数据库)
-
+            string path = Request.MapPath("~");
+            Album album = new Album();
+            AlbumSql asl = new AlbumSql();
+            album.Album_Id = Int32.Parse(Request.Form["delete_album_id"]);
+            asl.deleteAlbum(album, path);
             //删除相册
-
-            return View();
+            return RedirectToAction("Index","Album");
         }
         public ActionResult changeCover()
         {

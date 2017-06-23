@@ -141,8 +141,6 @@ namespace FFTX.Controllers
                 {
                     file.Delete();
                 }
-
-
                 return RedirectToAction("openAlbum", "Album", new { album_id = aid, page = 1 });
             }
                 
@@ -210,8 +208,8 @@ namespace FFTX.Controllers
             Comment c = new Comment();
             List<Comment> comment_list = csl.getComments(p.Photo_Id);
             ViewBag.comment_list = comment_list;
-            
-
+            ViewBag.from = Request.QueryString["from"];
+            ViewBag.kwd = Request.QueryString["keywords"];
             return View();
         }
 

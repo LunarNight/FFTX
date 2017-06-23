@@ -21,10 +21,10 @@ namespace FFTX.ModelsSql
         /// </summary>
         /// <param name="u">根据用户ID 获取好友列表  </param>
         /// <returns>返回Friend List</returns>
-        public List<Friend> getFriendList(User u)
+        public List<Friend> getFriendList(User u, int group_id)
         {
             //获取表中信息
-            string sql = string.Format("SELECT * FROM FFTX_Friend WHERE user_id = {0}",u.User_Id);
+            string sql = string.Format("SELECT * FROM FFTX_Friend WHERE user_id = {0} and group_id={1}",u.User_Id,group_id);
             SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
 
             if (sqldr != null && sqldr.HasRows)
@@ -61,6 +61,7 @@ namespace FFTX.ModelsSql
             SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
             if (sqldr != null && sqldr.HasRows)
             {
+                sqldr.Read();
                 f.Group_Id = sqldr.GetInt32(3);
                 f.Follow_Id_Remark = sqldr.GetValue(4) + "";
                 return true;
@@ -88,7 +89,7 @@ namespace FFTX.ModelsSql
             }
             else
             {   // 没有成为好友  再添加好友
-                string sql = string.Format("INSERT INTO FFTX_Friend (user_id,follow_id,group_id,follow_id_remark) VALUES ('{0}','{1}','{2}','{3}'')",
+                string sql = string.Format("INSERT INTO FFTX_Friend (user_id,follow_id,group_id,follow_id_remark) VALUES ('{0}','{1}','{2}','{3}')",
                                                            f.User_Id, f.Follow_Id, f.Group_Id, f.Follow_Id_Remark);
                 int result = SqlDB.ExecuteNonQuery(sql);
 

@@ -48,31 +48,16 @@
 	<div class="site-header">
 		<div class="main-navigation">
 
-			<div class="responsive_menu">
-				<ul>
-					<li><a class="templatemo_home" href="#">广场</a></li>
-					<li><a href="#">好友</a></li>
-					<li><a href="#">相册</a></li>
-					<li><a href="#">留言板</a></li>
-					<li><a href="#">个人中心</a></li>
-				</ul>
-			</div>
-
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 responsive-menu">
-						<a href="#" class="menu-toggle-btn">
-				            <i class="fa fa-bars"></i>
-				        </a>
-					</div> <!-- /.col-md-12 -->
 					<!--  广场 好友 相册 留言-->
 					<div class="col-md-12 main_menu">
 					
 						<ul style="display:inline">
-							<li><a class="templatemo_home" href="/FFTXIndex">广场</a></li>
-							<li><a href="/FFTXIndex/Friend">好友</a></li>
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Friend">好友</a></li>
 							<li><a href="/FFTXIndex/Album">相册</a></li>
-							<li><a href="/FFTXIndex/Board">留言板</a></li>
+							<li><a href="/FFTXIndex/BoardMessage">留言板</a></li>
 							<li><a href="/FFTXIndex/Manage">个人中心</a></li>
 						</ul>
 						
@@ -85,22 +70,27 @@
 
 	</div> <!-- /.site-header -->
 	<hr />
-	<!-- 分享框-->
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3 col-md-offset-4">
-				<div class="row">
-                    我的好友
+			<div class="col-md-4 col-md-offset-4">
+				<div class="row" style="font-size:36px;margin-bottom:20px;">
+                    <div>我的好友</div>
 				</div>
-                @if ((ViewBag.flist != null) && (ViewBag.flist.Count != 0))
-                {
-                    foreach (Friend f in ViewBag.flist)
+                <div class="row">
+                    <ul class="list-group">
+                    @if ((ViewBag.group_list != null) && (ViewBag.group_list.Count != 0))
                     {
-                      <div>好友id:@f.Follow_Id</div>
-                      <div>好友备注:@f.Follow_Id_Remark</div>
-                    <a href="/Friend/albumPage?user_id=@(((User)Session["user"]).User_Id)&friend_id=@f.Follow_Id">查看好友相册</a>
+                        foreach (Group g in ViewBag.group_list)
+                        {
+                            <li class="list-group-item">
+                                 <a href="/Friend/showFriends?group_id=@g.Group_Id" style="font-size:22px;">  
+                                     <span> @g.Group_Name ( @g.Group_Friend_Num )</span>
+                                 </a>
+                           </li>
+                        }
                     }
-                }
+                    </ul>
+                </div>
 			</div>
 			
 		</div>
@@ -111,7 +101,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<p>安德森</p>
+					<p></p>
 				</div> <!-- /.col-md-12 -->
 			</div> <!-- /.row -->
 		</div> <!-- /.container -->

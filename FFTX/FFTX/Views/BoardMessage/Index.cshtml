@@ -2,29 +2,126 @@
     Layout = null;
 }
 @using FFTX.Models
+@model FFTX.Models.Message
 <!DOCTYPE html>
-
-<html>
+<html lang="zh-CN">
 <head>
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="../../Content/my.css" />
+
+	<title>留言板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+	<!-- CSS Bootstrap & Custom -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/Content/css/templatemo_style.css">
+	<link rel="stylesheet" href="/Content/css/zxj_style.css">
+
+
 </head>
 <body>
-    <div id="head">留言板页面
-        <div id="head-bg">
-            <img src="" />
-            <div id="head-name">用户名: @ViewBag.User_Name </div>
-        </div>
-        <div id="nav">
-            <span>@Html.ActionLink("我的主页", "FFTXIndex") </span><span>@Html.ActionLink("我的相册", "Album")</span><span>@Html.ActionLink("留言板", "Index")</span><span>@Html.ActionLink("管理中心", "Manage")</span>
-        </div>
-    </div>
-    <div>
-        留言板:
+<div class="site-header">
+		<div class="main-navigation">
 
-    </div>
-    <div>
-        留言内容1
-    </div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 main_menu">
+					
+						<ul style="display:inline">
+							<li><a href="#">主页</a></li>
+							<li><a href="#">好友</a></li>
+							<li><a href="#">相册</a></li>
+							<li><a class="templatemo_home" href="#">留言板</a></li>
+							<li><a href="#">个人中心</a></li>
+						</ul>
+						<ul class="pull-right"style="display:inline">
+							<li><a  href="#"><img class="img-circle img-thumbnail" src="1.png" style="width:40px ;margin-top:-10px"/> 小明</a></li>
+						</ul>
+						
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> 
+            
+		</div> <!-- /.main-navigation -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="templatemo_logo" href="#" >
+						<h1>留言板</h1>
+					</a> <!-- /.logo -->
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.site-header -->
+	<div class="container">
+		<div class="zxj-tool">
+			<span>留言</span>
+		</div>
+         @if ((ViewBag.message_list != null) && (ViewBag.message_list.Count != 0))
+         {
+             foreach (Message m in ViewBag.message_list)
+             {
+                 <div class="zxj-main">
+			        <img src="/Content/111.png" class="col-xs-1">
+			        <div class="zxj-box col-xs-11">
+				        <div class="zxj-top">
+					        <a class="zxj-username">@m.Message_User_Name</a>
+				        </div>
+				        <div class="zxj-content">
+					        @m.Message_Content
+				        </div>
+				        <div class="zxj-bottom">
+					        <span>@m.Message_Time</span>
+					        <a>回复</a> <a href="/BoardMessage/deleteMessage?message_id=@m.Message_Id">删除</a>
+				        </div>
+			        </div>
+			        <br style="clear:both;" />
+		        </div>
+                 
+             }
+
+         }
+
+        <div class="row">
+            @for (int i = 1; i <= ViewBag.pageNum;i++ )
+            {
+                <div class="col-md-1 col-md-push-1">
+                <a href="/BoardMessage?page=@i" style="margin:3px">@i</a>
+                </div>
+            }
+
+        </div>
+		<div class="leave-message">
+            @using (Html.BeginForm("addMessage", "BoardMessage", FormMethod.Post))
+            {
+                
+                <div >
+				    <span style="color: black;font-size: 17px;font-weight: bold">留言</span>
+			    </div>
+                @Html.TextAreaFor(model => model.Message_Content, new { @class="input-window",@required="required"})
+                <input type="hidden" value="0" id="Message_Reply_Id" name="Message_Reply_Id"/>
+                <!--此处应为好友的id-->
+                <input type="hidden" value="1" id="Message_Friend_Id" name="Message_Friend_Id" />
+                
+			    <div>
+				    <input type="submit" value="发表" />
+			    </div>
+            }
+		</div>
+	</div>
+	
+	<div id="templatemo_footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>脚注</p>
+				</div> <!-- /.col-md-12 -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.templatemo_footer -->
+
+	<!-- Scripts -->
+	<script src="/Content/js/jquery-1.10.2.min.js"></script>
+	<script src="/Content/js/templatemo_custom.js"></script>
+
 </body>
 </html>

@@ -160,6 +160,31 @@ namespace FFTX.ModelsSql
             }
             return null;
         }
+
+        //搜索照片
+        public List<Photo> searchName(string name)
+        {
+            string sql = string.Format("select * from FFTX_Photo p,FFTX_Album a where p.photo_src like '%(%{0}%' and a.album_power = 0 and a.album_id = p.album_id;", name);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            if (sqldr != null && sqldr.HasRows)
+            {
+                List<Photo> list = new List<Photo>();
+                while (sqldr.Read())
+                {
+                    Photo p = new Photo();
+                    p.Photo_Id = sqldr.GetInt32(0);
+                    p.Photo_Src = sqldr.GetValue(1) + "";
+                    p.Photo_Time = sqldr.GetDateTime(2);
+                    p.album_id = sqldr.GetInt32(3);
+                    p.Photo_Describe = sqldr.GetValue(4) + "";
+                    p.Photo_Like = sqldr.GetInt32(5);
+                    p.Photo_Label = sqldr.GetInt32(6);
+                    list.Add(p);
+                }
+                return list;
+            }
+            return null;
+        }
         
     }
 }

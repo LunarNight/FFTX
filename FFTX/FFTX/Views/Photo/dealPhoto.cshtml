@@ -33,12 +33,18 @@
        
         <span>添加滤镜:</span>
         <select id="type" onchange="imgFilter()">
+            <option value="">不变</option>
             <option value="Origion" selected>原图</option>
             <option value="Gray">灰度</option>
             <option value="Invert">反色</option>
             <option value="Binarize">黑白色</option>
             <option value="Brightness">加亮</option>
             <option value="Sharpen">锐化</option>
+            <option value="Edge">边缘化</option>
+            <option value="Emboss">浮雕</option>
+            <option value="Oil">油画</option>
+            <option value="StackBlur">模糊</option>
+            <option value="Mosaic">马赛克</option>
         </select> 滤镜功能:通过下拉菜单选择所需要的滤镜.<br />
         
         <div class="form-group has-success" style="display:inherit">
@@ -113,7 +119,11 @@
             case 'Binarize': util.imgToBinarize(); break;
             case 'Brightness': util.imgToBrightness(); break;
             case 'Sharpen': util.imgToSharpen(); break;
-            case 'xxx': util.imgToBinarize(); break;
+            case 'Edge': util.imgToEdge(); break;
+            case 'Emboss': util.imgToEmboss(); break;
+            case 'Oil': util.imgToOil(); break;
+            case 'StackBlur': util.imgToStackBlur(); break;
+            case 'Mosaic': util.imgToMosaic(); break;
         }
     }
     //

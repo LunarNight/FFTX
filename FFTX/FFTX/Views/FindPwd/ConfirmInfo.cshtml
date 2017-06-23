@@ -28,27 +28,40 @@
                         @Html.TextBoxFor(model => model.User_Id,new {@class="kuang_txt",placeholder="帐号"})<br />
                         @Html.TextBoxFor(model => model.Password_Question,new {@class="kuang_txt",placeholder="密保问题"})<br />
                         @Html.TextBoxFor(model => model.Password_Answer,new {@class="kuang_txt",placeholder="密保答案"})<br />
-                       <input type="button" onclick="getResult()" value="找回密码" class="btn_zhuce" />
+                       <input type="button" onclick="yz()" value="找回密码" class="btn_zhuce" />
                    </p>
                }
                 </div>
         	
             </div>
-         <input type="button" onclick="getResult()" value="AJAX" class="btn_zhuce" />
         </div>
     </div>
     <script>
-        
+        function $(id) {
+            return document.getElementById(id);
+        }
+        function yz() {
+            if($("User_Id").value==""){
+                alert("用户名不能为空");
+                return false;
+            }
+            if ($("Password_Question").value == "" || $("Password_Answer").value == "") {
+                alert("问题或答案不能为空");
+                return false;
+            }
+
+            getResult();
+        }
         function getResult() {
             var xmlhttp = new XMLHttpRequest();
             var user = new Object();
-            user.User_Id = 1;
-            user.Password_Question = '密码问题';
-            user.Password_Answer = "密码答案";
+            user.User_Id = $("User_Id").value;
+            user.Password_Question = $("Password_Question").value;
+            user.Password_Answer = $("Password_Answer").value;
             var a = 1;
             xmlhttp.open("Post", "/FindPwd/Test", true);
             xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            xmlhttp.send("a="+user.User_Id);
+            xmlhttp.send("id="+user.User_Id+"&question="+user.Password_Question+"&answer="+user.Password_Answer);
             
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

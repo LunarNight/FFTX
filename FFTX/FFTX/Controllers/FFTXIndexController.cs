@@ -18,7 +18,7 @@ namespace FFTX.Controllers
         {
             
             if (Session["LoginState"] != null){
-                ViewBag.se = Session["LoginState"].ToString();
+            
                 user.User_Id = ((User)Session["user"]).User_Id;
                 ViewBag.user =(User) Session["user"];
                

@@ -57,11 +57,54 @@ namespace FFTX.ModelsSql
 
         }
 
-        //删除相册
-        public bool deleteAlbum(Album album)
+        //删除相册              path: Request.MapPath("~s");
+        public bool deleteAlbum(Album album,string path)
         {
-            return true;
+            //查询相册中所包含的 photo id
+            string sql = string.Format("select photo_id from FFTX_Photo where album_id = '{0}'", album.Album_Id);
+            SqlDataReader sqldr = SqlDB.ExecuteReader(sql);
+            if (sqldr != null && sqldr.HasRows)
+            {
+                while (sqldr.Read())
+                {
+                    //删除photo
+                    deletePhoto(sqldr.GetInt32(0),path);
+                }
+
+            }
+            string sql2 = string.Format("delete from FFTX_Album where album_id = {0}",album.Album_Id);
+            int result = SqlDB.ExecuteNonQuery(sql2);
+            if(result==1){
+                return true;
+            }
+            return false;
         }
+        //删除一张照片 根据photo id     string path = Request.MapPath("~");
+        public bool deletePhoto(int pid, string path)
+        {
+            Photo p = new Photo();
+            PhotoSql ps = new PhotoSql();
+            p.Photo_Id = pid;
+            //获取照片信息
+            ps.getPhotoInfo(p);
+            //删除 有关此照片的所有信息(分享 评论 点赞)
+            bool result = ps.deletePhoto(p);
+
+            //删除图片文件
+            if (result)
+            {
+                //获取项目运行路径
+                FileInfo file = new FileInfo(path + p.Photo_Src);
+                if (file.Exists)
+                {
+                    file.Delete();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public Album getAlbumInfoById(Album album)
         {
             string sql = string.Format("select * from FFTX_Album where album_id = '{0}'", album.Album_Id);

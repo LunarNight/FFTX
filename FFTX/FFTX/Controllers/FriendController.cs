@@ -11,26 +11,76 @@ namespace FFTX.Controllers
     {
         //
         // GET: /Friend/
-        //显示好友页面
+        //显示好友分组页面
         public ActionResult Index()
         {
             User u = new User();
             u.User_Id = ((User)Session["user"]).User_Id;
+            
+
+            GroupSql gsql = new GroupSql();
+            //获取好友分组信息
+            List<Group> group_list = gsql.getGroupFriendInfo(u);
+            ViewBag.group_list = group_list;
+
+            /**一下信息  挪到下面**/
             FriendSql fsl = new FriendSql();
-            List<Friend> flist =  fsl.getFriendList(u);
+            List<Friend> flist =  fsl.getFriendList(u,1);
             ViewBag.flist = flist;
             return View();
         }
+
+        //根据所选分组 显示好友
+        public ActionResult showFriends()
+        {
+            User u = new User();
+            u.User_Id = ((User)Session["user"]).User_Id;
+
+
+            GroupSql gsql = new GroupSql();
+            //获取好友分组信息
+            List<Group> group_list = gsql.getGroupFriendInfo(u);
+            ViewBag.group_list = group_list;
+
+            //获取 指定分组的好友
+            int group_id = Int32.Parse(Request.QueryString["group_id"]);
+            FriendSql fsl = new FriendSql();
+            List<Friend> flist = fsl.getFriendList(u,group_id);
+            ViewBag.flist = flist;
+            ViewBag.group_id = group_id;
+            return View();
+        }
+
         //添加朋友  关注
         public ActionResult addFriend(Friend f)
         {
-            return View();
+            Friend friend = new Friend();
+            friend.User_Id = ((User)Session["user"]).User_Id;
+            string friend_id = Request.Form["friend_id"];
+            //这里是个固定值 需要获取
+            string group_id = Request.Form["group_id"];
+            string beizhu = Request.Form["beizhu"];
+
+            friend.Follow_Id = friend_id;
+            friend.Group_Id = Int32.Parse(group_id);
+            friend.Follow_Id_Remark = beizhu;
+            FriendSql gsql = new FriendSql();
+            gsql.addFriend(friend);
+            return RedirectToAction("index", "Friend");
         }
         //删除朋友  取消关注
         public ActionResult delFriend(Friend f)
         {
-            return View();
+            Friend friend = new Friend();
+            friend.User_Id = ((User)Session["user"]).User_Id;
+            string friend_id = Request.Form["a"];
+            friend.Follow_Id = friend_id;
+            FriendSql gsql = new FriendSql();
+            gsql.deleteFriend(friend);
+            return RedirectToAction("index", "Friend");
         }
+
+
         //改备注
         public ActionResult changeRemark(Friend f)
         {
@@ -41,6 +91,9 @@ namespace FFTX.Controllers
         {
             return View();
         }
+
+
+
         //好友相册页面
         public ActionResult albumPage()
         {

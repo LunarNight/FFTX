@@ -32,31 +32,15 @@
 <body>
 	<div class="site-header">
 		<div class="main-navigation">
-
-			<div class="responsive_menu">
-				<ul>
-					<li><a class="show-1 templatemo_home" href="#">Gallery</a></li>
-					<li><a class="show-2 templatemo_page2" href="#">Products</a></li>
-					<li><a class="show-3 templatemo_page3" href="#">Services</a></li>
-					<li><a class="show-4 templatemo_page4" href="#">About Us</a></li>
-					<li><a class="show-5 templatemo_page5" href="#">Contact Us</a></li>
-				</ul>
-			</div>
-
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 responsive-menu">
-						<a href="#" class="menu-toggle-btn">
-				            <i class="fa fa-bars"></i>
-				        </a>
-					</div> <!-- /.col-md-12 -->
 					<div class="col-md-12 main_menu">				
 						<ul style="display:inline">
-							<li><a href="#">主页</a></li>
-							<li><a href="#">好友</a></li>
-							<li><a href="#">相册</a></li>
-							<li><a href="#">留言板</a></li>
-							<li><a class="templatemo_home" href="#">个人中心</a></li>
+							<li><a href="/FFTXIndex">广场</a></li>
+							<li><a href="/FFTXIndex">好友</a></li>
+							<li><a href="/FFTXIndex/Album">相册</a></li>
+							<li><a href="/FFTXIndex/Board">留言板</a></li>
+							<li><a class="templatemo_home" href="/FFTXIndex/Manage">个人中心</a></li>
 						</ul>
 						<ul class="pull-right"style="display:inline">
 							<li><a  href="#"><img class="img-circle img-thumbnail" src="@(((User)Session["user"]).User_HeadImg)" style="width:40px ;margin-top:-10px"/> @(((User)Session["user"]).User_Name)</a></li>
@@ -198,7 +182,10 @@
                                 性别：
                             </div>
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.User_Sex, new { @Value= @ViewBag.user.User_Sex,style="width:105px;" })
+                                <select name="User_Sex" id="User_Sex">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
                             </div>
                         </div>            
                           <div class="row">
